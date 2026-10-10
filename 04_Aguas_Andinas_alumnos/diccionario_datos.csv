@@ -1,0 +1,76 @@
+archivo,campo,tipo_esperado,definicion,unidad,obligatorio_para_KPI,clave,nulos_validos
+datos/dimensiones/sectores.csv,sector_id,identificador,"Sector ficticio, disjunto de los demás para ponderar conexiones.",ver definición del campo,True,True,no previstos en origen salvo defectos de calidad
+datos/dimensiones/sectores.csv,nombre_sector,object,Nombre docente de sector; no ubica infraestructura real.,ver definición del campo,False,False,no previstos en origen salvo defectos de calidad
+datos/dimensiones/sectores.csv,comuna_referencia,object,"Comuna como etiqueta de contexto, no área de concesión ni ubicación de una instalación real.",ver definición del campo,False,False,no previstos en origen salvo defectos de calidad
+datos/dimensiones/sectores.csv,conexiones,numérico,Número sintético de conexiones expuestas del sector; constante en los siete meses y sin solapamiento entre sectores.,ver definición del campo,False,False,no previstos en origen salvo defectos de calidad
+datos/dimensiones/sectores.csv,capacidad_m3_h,numérico,Capacidad horaria sintética para contrastar mediciones y detectar magnitudes anómalas.,ver definición del campo,False,False,no previstos en origen salvo defectos de calidad
+datos/dimensiones/metas_ancho.csv,sector_id,identificador,"Sector ficticio, disjunto de los demás para ponderar conexiones.",ver definición del campo,True,True,no previstos en origen salvo defectos de calidad
+datos/dimensiones/metas_ancho.csv,indicador,object,Nombre del indicador cuya meta aparece en las columnas mensuales.,ver definición del campo,False,True,no previstos en origen salvo defectos de calidad
+datos/dimensiones/metas_ancho.csv,unidad,object,Unidad de la meta o umbral.,ver definición del campo,False,False,no previstos en origen salvo defectos de calidad
+datos/dimensiones/metas_ancho.csv,sentido,object,maximo indica límite superior; minimo indica piso deseado. Todos son supuestos docentes.,ver definición del campo,False,False,no previstos en origen salvo defectos de calidad
+datos/dimensiones/metas_ancho.csv,m2025_01,numérico,Meta docente para m2025 01,ver definición del campo,False,False,no previstos en origen salvo defectos de calidad
+datos/dimensiones/metas_ancho.csv,m2025_02,numérico,Meta docente para m2025 02,ver definición del campo,False,False,no previstos en origen salvo defectos de calidad
+datos/dimensiones/metas_ancho.csv,m2025_03,numérico,Meta docente para m2025 03,ver definición del campo,False,False,no previstos en origen salvo defectos de calidad
+datos/dimensiones/metas_ancho.csv,m2025_04,numérico,Meta docente para m2025 04,ver definición del campo,False,False,no previstos en origen salvo defectos de calidad
+datos/dimensiones/metas_ancho.csv,m2025_05,numérico,Meta docente para m2025 05,ver definición del campo,False,False,no previstos en origen salvo defectos de calidad
+datos/dimensiones/metas_ancho.csv,m2025_06,numérico,Meta docente para m2025 06,ver definición del campo,False,False,no previstos en origen salvo defectos de calidad
+datos/dimensiones/metas_ancho.csv,m2025_07,numérico,Meta docente para m2025 07,ver definición del campo,False,False,no previstos en origen salvo defectos de calidad
+datos/base/telemetria_horaria.csv,medicion_id,identificador,Clave sintética única de sector y hora UTC.,ver definición del campo,True,True,no previstos en origen salvo defectos de calidad
+datos/base/telemetria_horaria.csv,fecha,fecha UTC,Instante de referencia de la observación en UTC. En Entel es el último instante del mes; en Aguas es el inicio de la hora; en ventas y envíos es la fecha de la operación.,ver definición del campo,True,False,no previstos en origen salvo defectos de calidad
+datos/base/telemetria_horaria.csv,sector_id,identificador,"Sector ficticio, disjunto de los demás para ponderar conexiones.",ver definición del campo,True,False,no previstos en origen salvo defectos de calidad
+datos/base/telemetria_horaria.csv,volumen_entrada,numérico,"Volumen que ingresa durante la hora, en la unidad indicada por unidad_volumen.",según unidad_volumen,True,False,no previstos en origen salvo defectos de calidad
+datos/base/telemetria_horaria.csv,volumen_salida,numérico,"Volumen que sale durante la hora, en la misma unidad de volumen_entrada.",según unidad_volumen,True,False,no previstos en origen salvo defectos de calidad
+datos/base/telemetria_horaria.csv,unidad_volumen,object,m3 o L. Convertir litros a m3 dividiendo por 1000 antes de sumar o comparar.,ver definición del campo,True,False,no previstos en origen salvo defectos de calidad
+datos/base/telemetria_horaria.csv,presion_bar,numérico,Presión operacional simulada en bar. No es un criterio sanitario ni un estándar regulatorio.,bar,True,False,no previstos en origen salvo defectos de calidad
+datos/base/telemetria_horaria.csv,energia_kwh,numérico,"Energía consumida durante la hora, en kWh.",kWh,True,False,no previstos en origen salvo defectos de calidad
+datos/base/telemetria_horaria.csv,minutos_interrupcion,numérico,"Minutos de interrupción del sector durante la hora, entre 0 y 60.",minutos,True,False,no previstos en origen salvo defectos de calidad
+datos/base/telemetria_horaria.csv,modo_operacion,object,normal o mantenimiento. Son escenarios sintéticos sin correspondencia con instalaciones reales.,ver definición del campo,False,False,no previstos en origen salvo defectos de calidad
+datos/base/telemetria_horaria.csv,cargado_en,fecha UTC,Instante UTC de primera carga de la observación al repositorio. Permite medir latencia frente a fecha. No es la fecha del último cambio de estado ni la antigüedad del archivo frente a hoy.,ver definición del campo,False,False,no previstos en origen salvo defectos de calidad
+datos/actualizacion/telemetria_horaria.csv,medicion_id,identificador,Clave sintética única de sector y hora UTC.,ver definición del campo,True,True,no previstos en origen salvo defectos de calidad
+datos/actualizacion/telemetria_horaria.csv,fecha,fecha UTC,Instante de referencia de la observación en UTC. En Entel es el último instante del mes; en Aguas es el inicio de la hora; en ventas y envíos es la fecha de la operación.,ver definición del campo,True,False,no previstos en origen salvo defectos de calidad
+datos/actualizacion/telemetria_horaria.csv,sector_id,identificador,"Sector ficticio, disjunto de los demás para ponderar conexiones.",ver definición del campo,True,False,no previstos en origen salvo defectos de calidad
+datos/actualizacion/telemetria_horaria.csv,volumen_entrada,numérico,"Volumen que ingresa durante la hora, en la unidad indicada por unidad_volumen.",según unidad_volumen,True,False,no previstos en origen salvo defectos de calidad
+datos/actualizacion/telemetria_horaria.csv,volumen_salida,numérico,"Volumen que sale durante la hora, en la misma unidad de volumen_entrada.",según unidad_volumen,True,False,no previstos en origen salvo defectos de calidad
+datos/actualizacion/telemetria_horaria.csv,unidad_volumen,object,m3 o L. Convertir litros a m3 dividiendo por 1000 antes de sumar o comparar.,ver definición del campo,True,False,no previstos en origen salvo defectos de calidad
+datos/actualizacion/telemetria_horaria.csv,presion_bar,numérico,Presión operacional simulada en bar. No es un criterio sanitario ni un estándar regulatorio.,bar,True,False,no previstos en origen salvo defectos de calidad
+datos/actualizacion/telemetria_horaria.csv,energia_kwh,numérico,"Energía consumida durante la hora, en kWh.",kWh,True,False,no previstos en origen salvo defectos de calidad
+datos/actualizacion/telemetria_horaria.csv,minutos_interrupcion,numérico,"Minutos de interrupción del sector durante la hora, entre 0 y 60.",minutos,True,False,no previstos en origen salvo defectos de calidad
+datos/actualizacion/telemetria_horaria.csv,modo_operacion,object,normal o mantenimiento. Son escenarios sintéticos sin correspondencia con instalaciones reales.,ver definición del campo,False,False,no previstos en origen salvo defectos de calidad
+datos/actualizacion/telemetria_horaria.csv,cargado_en,fecha UTC,Instante UTC de primera carga de la observación al repositorio. Permite medir latencia frente a fecha. No es la fecha del último cambio de estado ni la antigüedad del archivo frente a hoy.,ver definición del campo,False,False,no previstos en origen salvo defectos de calidad
+datos/ampliacion/telemetria_horaria.csv,medicion_id,identificador,Clave sintética única de sector y hora UTC.,ver definición,True,True,no previstos salvo defectos de calidad
+datos/ampliacion/telemetria_horaria.csv,fecha,fecha UTC,Instante de referencia de la observación en UTC. En Entel es el último instante del mes; en Aguas es el inicio de la hora; en ventas y envíos es la fecha de la operación.,ver definición,True,False,no previstos salvo defectos de calidad
+datos/ampliacion/telemetria_horaria.csv,sector_id,identificador,"Sector ficticio, disjunto de los demás para ponderar conexiones.",ver definición,True,False,no previstos salvo defectos de calidad
+datos/ampliacion/telemetria_horaria.csv,volumen_entrada,float64,"Volumen que ingresa durante la hora, en la unidad indicada por unidad_volumen.",ver definición,True,False,no previstos salvo defectos de calidad
+datos/ampliacion/telemetria_horaria.csv,volumen_salida,float64,"Volumen que sale durante la hora, en la misma unidad de volumen_entrada.",ver definición,True,False,no previstos salvo defectos de calidad
+datos/ampliacion/telemetria_horaria.csv,unidad_volumen,object,m3 o L. Convertir litros a m3 dividiendo por 1000 antes de sumar o comparar.,ver definición,True,False,no previstos salvo defectos de calidad
+datos/ampliacion/telemetria_horaria.csv,presion_bar,float64,Presión operacional simulada en bar. No es un criterio sanitario ni un estándar regulatorio.,ver definición,True,False,no previstos salvo defectos de calidad
+datos/ampliacion/telemetria_horaria.csv,energia_kwh,float64,"Energía consumida durante la hora, en kWh.",ver definición,True,False,no previstos salvo defectos de calidad
+datos/ampliacion/telemetria_horaria.csv,minutos_interrupcion,int64,"Minutos de interrupción del sector durante la hora, entre 0 y 60.",ver definición,True,False,no previstos salvo defectos de calidad
+datos/ampliacion/telemetria_horaria.csv,modo_operacion,object,normal o mantenimiento. Son escenarios sintéticos sin correspondencia con instalaciones reales.,ver definición,False,False,no previstos salvo defectos de calidad
+datos/ampliacion/telemetria_horaria.csv,cargado_en,fecha UTC,Instante UTC de primera carga de la observación al repositorio. Permite medir latencia frente a fecha. No es la fecha del último cambio de estado ni la antigüedad del archivo frente a hoy.,ver definición,False,False,no previstos salvo defectos de calidad
+datos/complementarios/metas_2025_ancho.csv,sector_id,identificador,"Sector ficticio, disjunto de los demás para ponderar conexiones.",ver definición,True,True,no previstos salvo defectos de calidad
+datos/complementarios/metas_2025_ancho.csv,indicador,object,Nombre del indicador cuya meta aparece en las columnas mensuales.,ver definición,False,True,no previstos salvo defectos de calidad
+datos/complementarios/metas_2025_ancho.csv,unidad,object,Unidad de la meta o umbral.,ver definición,False,False,no previstos salvo defectos de calidad
+datos/complementarios/metas_2025_ancho.csv,sentido,object,maximo indica límite superior; minimo indica piso deseado. Todos son supuestos docentes.,ver definición,False,False,no previstos salvo defectos de calidad
+datos/complementarios/metas_2025_ancho.csv,m2025_01,float64,Meta mensual docente,ver definición,False,False,no previstos salvo defectos de calidad
+datos/complementarios/metas_2025_ancho.csv,m2025_02,float64,Meta mensual docente,ver definición,False,False,no previstos salvo defectos de calidad
+datos/complementarios/metas_2025_ancho.csv,m2025_03,float64,Meta mensual docente,ver definición,False,False,no previstos salvo defectos de calidad
+datos/complementarios/metas_2025_ancho.csv,m2025_04,float64,Meta mensual docente,ver definición,False,False,no previstos salvo defectos de calidad
+datos/complementarios/metas_2025_ancho.csv,m2025_05,float64,Meta mensual docente,ver definición,False,False,no previstos salvo defectos de calidad
+datos/complementarios/metas_2025_ancho.csv,m2025_06,float64,Meta mensual docente,ver definición,False,False,no previstos salvo defectos de calidad
+datos/complementarios/metas_2025_ancho.csv,m2025_07,float64,Meta mensual docente,ver definición,False,False,no previstos salvo defectos de calidad
+datos/complementarios/metas_2025_ancho.csv,m2025_08,float64,Meta mensual docente,ver definición,False,False,no previstos salvo defectos de calidad
+datos/complementarios/metas_2025_ancho.csv,m2025_09,float64,Meta mensual docente,ver definición,False,False,no previstos salvo defectos de calidad
+datos/complementarios/metas_2025_ancho.csv,m2025_10,float64,Meta mensual docente,ver definición,False,False,no previstos salvo defectos de calidad
+datos/complementarios/metas_2025_ancho.csv,m2025_11,float64,Meta mensual docente,ver definición,False,False,no previstos salvo defectos de calidad
+datos/complementarios/metas_2025_ancho.csv,m2025_12,float64,Meta mensual docente,ver definición,False,False,no previstos salvo defectos de calidad
+datos/complementarios/sectores_historial.csv,sector_id,identificador,"Sector ficticio, disjunto de los demás para ponderar conexiones.",ver definición,True,True,no previstos salvo defectos de calidad
+datos/complementarios/sectores_historial.csv,nombre_sector,object,Nombre docente de sector; no ubica infraestructura real.,ver definición,False,False,no previstos salvo defectos de calidad
+datos/complementarios/sectores_historial.csv,comuna_referencia,object,"Comuna como etiqueta de contexto, no área de concesión ni ubicación de una instalación real.",ver definición,False,False,no previstos salvo defectos de calidad
+datos/complementarios/sectores_historial.csv,conexiones,int64,"Conexiones disjuntas del sector durante la vigencia, cambian desde octubre. Peso de continuidad; no sumarlas como clientes únicos por cada hora.",ver definición,False,False,no previstos salvo defectos de calidad
+datos/complementarios/sectores_historial.csv,capacidad_m3_h,int64,Capacidad horaria sintética para contrastar mediciones y detectar magnitudes anómalas.,ver definición,False,False,no previstos salvo defectos de calidad
+datos/complementarios/sectores_historial.csv,vigente_desde,fecha UTC,Inicio inclusivo UTC de vigencia de esta versión del catálogo.,fecha UTC,False,True,no previstos salvo defectos de calidad
+datos/complementarios/sectores_historial.csv,vigente_hasta,fecha UTC,Fin exclusivo UTC de vigencia; exige una única versión para la fecha de negocio.,fecha UTC,False,False,no previstos salvo defectos de calidad
+datos/complementarios/tarifas_energia.csv,sector_id,identificador,"Sector ficticio, disjunto de los demás para ponderar conexiones.",ver definición,True,True,no previstos salvo defectos de calidad
+datos/complementarios/tarifas_energia.csv,mes,object,Mes calendario UTC en formato YYYY-MM.,mes,False,True,no previstos salvo defectos de calidad
+datos/complementarios/tarifas_energia.csv,tarifa_kwh_clp,int64,Tarifa docente por unidad de energía para sector y mes.,CLP/kWh,False,False,no previstos salvo defectos de calidad

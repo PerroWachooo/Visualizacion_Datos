@@ -1,0 +1,31 @@
+sector_id,nombre_sector,comuna_referencia,conexiones,capacidad_m3_h
+A-S00,Sector docente 1,Santiago,2354,1266
+A-S01,Sector docente 2,Santiago,829,1537
+A-S02,Sector docente 3,Santiago,849,981
+A-S03,Sector docente 4,Santiago,1281,1655
+A-S04,Sector docente 5,Santiago,3179,1052
+A-S05,Sector docente 6,Maipu,3741,721
+A-S06,Sector docente 7,Maipu,3818,305
+A-S07,Sector docente 8,Maipu,3099,542
+A-S08,Sector docente 9,Maipu,5171,397
+A-S09,Sector docente 10,Maipu,708,490
+A-S10,Sector docente 11,La Florida,1865,1190
+A-S11,Sector docente 12,La Florida,3635,724
+A-S12,Sector docente 13,La Florida,1832,392
+A-S13,Sector docente 14,La Florida,3019,429
+A-S14,Sector docente 15,La Florida,717,1150
+A-S15,Sector docente 16,Puente Alto,4081,897
+A-S16,Sector docente 17,Puente Alto,1991,327
+A-S17,Sector docente 18,Puente Alto,1654,513
+A-S18,Sector docente 19,Puente Alto,3457,1481
+A-S19,Sector docente 20,Puente Alto,2200,674
+A-S20,Sector docente 21,Providencia,3287,1304
+A-S21,Sector docente 22,Providencia,2672,1109
+A-S22,Sector docente 23,Providencia,3888,1640
+A-S23,Sector docente 24,Providencia,4680,519
+A-S24,Sector docente 25,Providencia,5150,1240
+A-S25,Sector docente 26,San Bernardo,1353,486
+A-S26,Sector docente 27,San Bernardo,4439,1184
+A-S27,Sector docente 28,San Bernardo,5231,1643
+A-S28,Sector docente 29,San Bernardo,2222,347
+A-S29,Sector docente 30,San Bernardo,2571,1128
