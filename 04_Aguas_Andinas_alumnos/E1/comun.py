@@ -43,7 +43,12 @@ NOTA_FUENTE = "Datos simulados docentes · Caso Aguas Andinas v2 · Fechas UTC"
 def verificar_hashes():
     """Falla si algún archivo de datos/ difiere de metadatos.json (no deben editarse)."""
     for f in META["files"]:
-        real = hashlib.sha256((RAIZ / f["archivo"]).read_bytes()).hexdigest()
+        contenido = (RAIZ / f["archivo"]).read_bytes()
+        # Git puede materializar LF como CRLF en Windows (core.autocrlf).
+        # Comparar el contenido canónico LF declarado por metadatos.json sin
+        # cambiar el archivo del usuario ni ocultar diferencias de contenido.
+        contenido = contenido.replace(b"\r\n", b"\n")
+        real = hashlib.sha256(contenido).hexdigest()
         assert real == f["sha256"], f"{f['archivo']} fue modificado"
 
 

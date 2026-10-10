@@ -1,6 +1,6 @@
 # T1: Necesidades, inventario, diccionario e integración
 
-**Responsable:** ____________
+**Responsable:** José Marín
 **Ítems del Word:** W1, W2, W3, límites de W6, R2, R3 · **Rúbrica:** "Audiencia y preguntas" (25 pts) y "Reproducibilidad y claridad" (15 pts)
 **Notebook de trabajo:** `E1/T1_inventario.ipynb`
 **Productos:** `salidas/tablas/diccionario_revisado.csv`, `Diagnostico.pdf`, `E1_diagnostico.ipynb`, `salidas/tablas/fichas_indicadores.csv` (unión)
