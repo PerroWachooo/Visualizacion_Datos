@@ -38,10 +38,11 @@ Pedido: lo que el usuario quiere mostrar y, si lo indica, la tarea (T1–T4) y l
 
 ## Interpretación (siempre, en una celda Markdown bajo el gráfico)
 
-2–4 líneas:
-1. **Qué muestra:** el patrón principal, con la cifra y su denominador.
-2. **Por qué importa para la decisión:** continuidad, diferencia de volúmenes, energía o confiabilidad.
-3. **Límite:** qué no permite afirmar (causa, sectores con baja cobertura, datos simulados…).
+2–4 líneas, separando **observación, hipótesis y decisión** como pide el Word de la E1:
+1. **Observación:** el patrón principal, con la cifra y su denominador, el período, la unidad y la población.
+2. **Hipótesis** (si la hay): posible explicación, redactada como tal y no como hecho.
+3. **Por qué importa para la decisión:** continuidad, diferencia de volúmenes, energía o confiabilidad.
+4. **Límite:** qué no permite afirmar (causa, sectores con baja cobertura, datos simulados…).
 
 El curso pide "gráficos interpretados, no solo capturas de código". Un gráfico sin estas líneas no está terminado.
 

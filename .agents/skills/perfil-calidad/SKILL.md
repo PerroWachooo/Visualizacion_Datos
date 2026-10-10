@@ -32,19 +32,34 @@ Para catálogos, tarifas y metas: unicidad de la clave esperada (`metadatos.json
 
 `comun.parse_exploratorio` ya entrega flags (`_decimal_coma`, `_fecha_formato_alt`, `_fecha_invalida`, `_numero_no_parseable`, `_unidad_L`, `_unidad_desconocida`, `_dup_medicion_id`). Hay que usarlos en vez de reimplementar el parseo.
 
+## Clasificación de cada problema
+
+El Word de la E1 exige distinguir:
+- **`defecto`:** incumple el contrato. Ejemplos: unidad desconocida, fecha imposible, salida > entrada, minutos > 60, clave repetida.
+- **`extremo_plausible`:** raro pero posible; se marca y no se borra.
+- **`ausencia_estructural`:** falta por diseño. Ejemplos: tarifas antes de agosto, metas fuera del período.
+
+Las horas sin lectura en la grilla **no son** ausencia estructural por defecto: pueden ocultar fallas y hay que justificarlo.
+
+Además, estimar **qué KPI se sesgan más y en qué dirección** (`impacto_KPI`).
+
 ## Salida
 
-1. Un CSV con **exactamente** las columnas de `04_Aguas_Andinas_alumnos/plantilla_reglas_calidad.csv`:
-   `regla_id, tabla, campo, condicion, severidad, denominador, filas_evaluadas, filas_fallidas, tratamiento, justificacion, impacto_KPI`
+1. **`perfil_calidad.csv`**, perfil por lote y segmento, con las columnas:
+   `lote, segmento_tipo, segmento_valor, campo, filas, nulos, pct_nulos, distintos, invalidos, pct_invalidos, min, p50, max`
+   - `segmento_tipo` ∈ {total, sector, mes, modo_operacion}.
+2. **`matriz_reglas.csv`**, con las columnas de `04_Aguas_Andinas_alumnos/plantilla_reglas_calidad.csv` y luego `lote, clasificacion`:
+   `regla_id, tabla, campo, condicion, severidad, denominador, filas_evaluadas, filas_fallidas, tratamiento, justificacion, impacto_KPI, lote, clasificacion`
    - `regla_id` es estable entre entregas (`RQ-UNI-01`, `RQ-VAL-03`…), para comparar E1 con E2 con E4.
    - `severidad`: alta, media o baja, según el impacto en la decisión (continuidad, diferencia de volúmenes, energía o confiabilidad).
-   - Si se mide por lote, una fila por regla × lote (se agrega `lote` en `condicion` o en `denominador`).
-   - Ruta: `E<n>/salidas/tablas/T<n>_reglas_calidad.csv`, con el prefijo de la tarea de quien lo pide. Si no está claro, preguntar.
-2. En la respuesta: una tabla resumida de las reglas con más filas fallidas o mayor severidad, y 2–3 hallazgos candidatos en el formato del `E1/README.md` (Evidencia, Figura o tabla, Límite, Acción propuesta, Dimensión).
+   - Una fila por regla × lote.
+   - `tratamiento` alimenta el plan de limpieza del diagnóstico.
+3. Rutas: en la E1, `E1/salidas/tablas/perfil_calidad.csv` y `E1/salidas/tablas/matriz_reglas.csv`, que son productos del Word con nombre exacto. En otras entregas, seguir lo que diga su Word o README; si no está claro, preguntar.
+4. En la respuesta: una tabla resumida de las reglas con más filas fallidas o mayor severidad, y 2–3 hallazgos candidatos en el formato de `E1/README.md` (Observación, Gráfico o tabla, Período · unidad · población, Hipótesis, Decisión o acción, Limitación, Dimensión).
 
 ## Según la entrega
 
-- **E1:** solo medir y proponer.
+- **E1:** solo medir y proponer. Las 6 métricas de calidad preliminares salen de estas reglas (skill `ficha-indicador`).
 - **E2:** correr dos veces (crudo y preparado) con los mismos `regla_id` y reportar el antes/después.
-- **E3:** elegir las 6 métricas de calidad del dashboard entre estas reglas, con umbral y responsable (`plantilla_fichas_indicadores.csv`).
+- **E3:** cerrar las 6 métricas de calidad del dashboard, con umbral y responsable (skill `ficha-indicador`).
 - **E4:** reingesta. Volver a correr sobre los datos recargados y confirmar que los conteos no cambian (idempotencia).

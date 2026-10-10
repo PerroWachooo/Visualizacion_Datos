@@ -1,66 +1,74 @@
-# T3: Cobertura, granularidad y catálogos
+# T3: Cobertura, continuidad y catálogos
 
 **Responsable:** ____________
-**Cubre:** IL1.2 (granularidad, pertinencia, consistencia con catálogos)
-**Notebook:** `E1/T3_cobertura.ipynb`
+**Ítems del Word:** W4f (faltantes por segmento), P1, P3, S3 · **Rúbrica:** "EDA y granularidad" (30 pts) y el sesgo de faltantes de "Calidad y pertinencia"
+**Notebook de trabajo:** `E1/T3_cobertura.ipynb`
+**Productos:** `salidas/tablas/T3_cobertura_sector_semana.csv`, `salidas/tablas/T3_continuidad_sector_semana.csv`, `salidas/tablas/T3_por_sector.csv`, `salidas/tablas/T3_uniones.csv`, heatmap
 
 ## Objetivo
 
-Responder **qué horas y sectores están realmente observados** y si las tablas complementarias se pueden unir a los hechos sin perder ni duplicar filas. El enunciado lo exige: las horas ausentes deben quedar **visibles** en la cobertura, no desaparecer.
+Responder **qué sector-horas están realmente observadas**, qué tan buena es la continuidad **considerando lo que no se sabe** (límites con 0 y 60 min en las horas ausentes) y si los catálogos se pueden unir a los hechos sin perder ni duplicar filas. Las horas ausentes deben quedar **visibles**: no desaparecen ni se rellenan con 0.
 
 ## Insumos
 
-- `comun.parse_exploratorio(comun.cargar_lotes())`: usar `fecha` ya tipada. Las filas con `_fecha_invalida` quedan con `NaT` y hay que contarlas aparte.
+- `comun.parse_exploratorio(comun.cargar_lotes())`. Usar `fecha` tipada; las filas con `_fecha_invalida` quedan con `NaT` y se cuentan aparte.
 - Tablas complementarias, todas vía `comun.cargar_tabla(...)`:
   - `dimensiones/sectores.csv`
-  - `complementarios/sectores_historial.csv`
+  - `complementarios/sectores_historial.csv`: conexiones por vigencia, con corte el 2025-10-01.
   - `complementarios/tarifas_energia.csv`
-  - `dimensiones/metas_ancho.csv`
-  - `complementarios/metas_2025_ancho.csv`
-- La sección "Contrato" y "Modelo de datos" del [README del caso](../../README.md) y del enunciado.
+  - `dimensiones/metas_ancho.csv` y `complementarios/metas_2025_ancho.csv`
 
-## Pistas detectadas al preparar la estructura
+## Parte A: grilla, cobertura y faltantes por segmento (W4f, S3)
 
-Hay que **verificar y cuantificar**:
+1. Grilla esperada: calendario UTC horario × 30 `sector_id`, por lote según su período. Para ago–dic el enunciado da 110.160 sector-horas.
+2. Left join **desde la grilla** a los hechos. Las lecturas cuentan como "válidas" si tienen fecha válida, sector del catálogo y clave única; **declarar** el criterio. El resultado es una columna `estado` ∈ {observada, ausente}.
+3. Comparar filas recibidas vs. horas esperadas por lote. ¿En algún lote hay **más** filas que horas? Explicar por qué (duplicados, sector-horas repetidas con distinto `medicion_id`, `NO_EXISTE`, fechas imposibles).
+4. **Faltantes por segmento:** cobertura por sector, semana, mes y hora del día. ¿Los huecos se **concentran** en algunos sectores? Eso es S3: el promedio de lecturas disponibles puede ocultar fallas.
 
-| Tema | Pista |
-|---|---|
-| Grilla esperada | Calendario UTC horario × 30 sectores por lote: ene–jun, jul y ago–dic. El enunciado da 110.160 sector-horas esperadas para ago–dic contra 100.000 lecturas. Hay que calcular también base y actualización y comparar filas recibidas vs. esperadas (¿hay **más** filas que horas en algún lote? ¿por qué?). |
-| Granularidad | ¿Existe exactamente una lectura por sector-hora? Hay pares sector + `fecha` repetidos con **distinto** `medicion_id`. |
-| Hechos sin lugar en la grilla | Filas con `fecha` imposible (NaT) y filas cuyo `sector_id` no existe en el catálogo (aparece `NO_EXISTE`). |
-| Vigencias | `sectores_historial` tiene 2 versiones por sector (corte 2025-10-01, desde inclusivo y hasta exclusivo). Verificar que **cada hecho calza exactamente con una versión** y medir cuántas `conexiones` cambian en octubre. |
-| Tarifas | N:1 por `sector_id` + `mes`, solo ago–dic. Verificar que todo hecho de ago–dic encuentre tarifa. Antes de agosto la tarifa está **fuera de alcance**, no es 0. |
-| Metas | `metas_2025_ancho` (ene–dic) reemplaza a `metas_ancho` (ene–jul). Verificar si coinciden en los meses comunes, describir por qué el formato ancho no es tidy y qué `melt` hará falta en la E2. |
+## Parte B: continuidad con límites (P1)
 
-## Pasos sugeridos
+Por **sector y semana** (y también por sector en el período del ranking), **ponderada por las conexiones vigentes en cada hora**. Las conexiones cambian el 2025-10-01; la unión es desde inclusivo y hasta exclusivo, con exactamente una versión por hecho.
 
-1. Construir la grilla con `pd.date_range(..., freq="h", tz="UTC")` × los 30 `sector_id` del catálogo, por lote según su período.
-2. Hacer un left join **desde la grilla** a los hechos (deduplicados solo para este conteo, y declararlo) y marcar `observada` = sí/no.
-3. Calcular la cobertura por lote, mes y sector: horas observadas / horas esperadas. Escribir siempre ambos números.
-4. Heatmap de cobertura, sector (filas) × día o semana (columnas), al menos para la ampliación. Usar `/grafico-diagnostico`.
-5. Revisar si los huecos se concentran en sectores, meses u horas del día específicos. Eso afecta qué sectores se pueden comparar con justicia.
-6. Hacer las uniones de prueba con historial y tarifas: contar 0 coincidencias, 1 coincidencia y más de una.
+```
+peso_h = conexiones vigentes en la hora h
+continuidad_obs = 1 − Σ_obs(min_h · peso_h) / Σ_obs(60 · peso_h)                       # solo horas observadas
+continuidad_max = 1 − Σ_obs(min_h · peso_h) / Σ_todas(60 · peso_h)                     # supone 0 min en horas desconocidas
+continuidad_min = 1 − [Σ_obs(min_h · peso_h) + Σ_desc(60 · peso_h)] / Σ_todas(60 · peso_h)   # supone 60 min en horas desconocidas
+```
 
-## Entregables
+- Decidir y **declarar** si una hora con `minutos_interrupcion` fuera de 0–60 cuenta como "desconocida". Ese es un caso de S2 que mide T2.
+- Comparar con la meta docente de continuidad (`metas_2025_ancho`, 99,5%, sentido mínimo). ¿Qué sectores no se pueden calificar porque el intervalo [mín, máx] cruza la meta?
+- Salidas: `T3_continuidad_sector_semana.csv` y `T3_por_sector.csv` (contrato del [README](../README.md); preliminar el D-7).
 
-- `E1/T3_cobertura.ipynb`
-- `E1/salidas/tablas/T3_cobertura_sector_mes.csv`, con columnas `sector_id, mes, horas_esperadas, horas_observadas, cobertura_pct`.
-- `E1/salidas/tablas/T3_uniones.csv`: una fila por unión (historial, tarifas, catálogo) con hechos evaluados, con 0, 1 y más de 1 coincidencia.
-- `E1/salidas/figuras/T3_*.png`, como mínimo el heatmap de cobertura, con su interpretación.
+## Parte C: mapa de calor con ausencia visible (P3)
+
+- Heatmap de sector (filas) × semana o día (columnas), de interrupciones (o presión), con las **horas ausentes en un color propio** (`comun.PALETA["ausente"]`), nunca como 0. Usar `/grafico-diagnostico`.
+- Analizar presión e interrupciones: ¿coinciden presiones bajas con interrupciones o con huecos? Una presión baja es **solo una señal operacional del escenario**, no un juicio sanitario.
+
+## Parte D: catálogos y uniones
+
+Generar `T3_uniones.csv`, con una fila por unión y las columnas: hechos evaluados, 0 coincidencias, 1 y más de 1. Revisar:
+- **sector → catálogo:** aparece `NO_EXISTE`;
+- **hecho → `sectores_historial`:** exactamente una vigencia por hecho;
+- **hecho (ago–dic) → tarifas:** antes de agosto la tarifa está **fuera de alcance**, no es 0;
+- **metas:** las dos versiones se reemplazan, no se concatenan. ¿Coinciden en ene–jul? Hay que dejar anotado el `melt` que se necesitará en la E2.
 
 ## Terminado cuando
 
-- [ ] Hay una tabla de filas recibidas vs. esperadas para los 3 lotes, con la explicación de las diferencias.
-- [ ] El heatmap muestra las horas ausentes, que no se rellenan con 0.
-- [ ] Cada unión tiene el conteo de 0, 1 y más de 1 coincidencia.
+- [ ] Está la tabla de recibidas vs. esperadas para los 3 lotes, con la explicación de las diferencias.
+- [ ] Están la cobertura por sector y semana y los faltantes por segmento.
+- [ ] La continuidad observada, mínima y máxima está ponderada por conexiones, por sector y semana.
+- [ ] El heatmap tiene la ausencia visible y el análisis de presión e interrupciones.
+- [ ] Están `T3_por_sector.csv` (preliminar el D-7) y `T3_uniones.csv`.
 - [ ] 2–3 hallazgos candidatos escritos abajo.
 
 ## No hacer
 
 - No rellenar horas ausentes con 0 ni interpolar.
 - No concatenar las dos tablas de metas.
-- No medir reglas de formato ni duplicados exactos (T2); aquí solo interesan para explicar la cobertura.
+- No sumar `conexiones` por hora como si fueran clientes únicos: son un peso.
+- No medir reglas de formato (T2); aquí solo interesan para explicar la cobertura.
 
 ## Hallazgos candidatos
 
-<!-- Usar el formato del README: H<n>, Evidencia, Figura o tabla, Límite, Acción propuesta, Dimensión -->
+<!-- Usar el formato del README: H<n>, Observación, Gráfico o tabla, Período · unidad · población, Hipótesis, Decisión o acción, Limitación, Dimensión -->

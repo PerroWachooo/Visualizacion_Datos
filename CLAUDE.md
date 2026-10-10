@@ -18,7 +18,7 @@ Todo se ejecuta desde `04_Aguas_Andinas_alumnos/` (el notebook usa `Path.cwd()` 
 cd 04_Aguas_Andinas_alumnos
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-jupyter lab 00_inicio.ipynb          # notebook principal, con una sección por entrega (E1–E4)
+jupyter lab 00_inicio.ipynb          # notebook de inicio del curso; el entregable de cada E vive en E<n>/ (E1: E1/E1_diagnostico.ipynb)
 streamlit run <app>.py               # dashboard de E3 (streamlit está en requirements)
 ```
 
@@ -65,26 +65,31 @@ E1 Diagnóstico (10%), E2 Preparación (15%), E3 Dashboard (25%), E4 Defensa ind
 
 Las plantillas `plantilla_*.csv` (bitácora, fichas de indicadores, pruebas de usuarios, reglas de calidad) definen las columnas exactas que deben tener esos entregables. `diccionario_datos.csv` documenta cada campo.
 
-El README menciona una carpeta `entregas/` con cuatro Word de instrucciones y rúbricas por entrega, pero esa carpeta **no está en el repo**. Los requisitos de la E1 se reconstruyeron con la lámina 28 de `01_Datos_y_Diagnostico.pdf` y la lámina 10 del programa (notebook, diccionario y diagnóstico de hasta 3 páginas). Para las otras entregas, pedir el Word antes de asumir requisitos. Los PDF de la raíz se pueden leer sin poppler con PDFKit: `osascript -l JavaScript -e "ObjC.import('PDFKit'); \$.PDFDocument.alloc.initWithURL(\$.NSURL.fileURLWithPath('<ruta absoluta>')).string.js"`.
+Las instrucciones y rúbricas de cada entrega van en `04_Aguas_Andinas_alumnos/entregas/` y **son la fuente principal de requisitos**: mandan sobre el programa y las láminas. Se leen con `textutil -convert txt -stdout <archivo>.docx`.
+- **E1:** está `entregas/Aguas_Andinas_E1_Diagnostico.docx`. Productos: `E1_diagnostico.ipynb`, `Diagnostico.pdf` (máx. 5 páginas), diccionario revisado, `perfil_calidad.csv`, `matriz_reglas.csv` y fichas de 6 KPI + 6 métricas de calidad. Rúbrica de 100 puntos.
+- **E2–E4:** si su Word todavía no está, pedirlo antes de asumir requisitos.
+
+Los PDF de la raíz se pueden leer sin poppler con PDFKit: `osascript -l JavaScript -e "ObjC.import('PDFKit'); \$.PDFDocument.alloc.initWithURL(\$.NSURL.fileURLWithPath('<ruta absoluta>')).string.js"`.
 
 ## Trabajo del grupo (4 integrantes: Byron, Bastian, Sepu, Jose)
 
 Cada entrega vive en `04_Aguas_Andinas_alumnos/E<n>/`. La E1 está organizada así:
-- `E1/README.md`: checklist de requisitos con la ruta de evidencia, tabla de tareas T1–T4, cronograma relativo, convenciones y el formato de "hallazgo candidato".
-- `E1/tareas/T<n>_*.md`: una tarea por persona, diseñadas para no bloquearse entre sí. Cada una escribe solo en sus propios archivos (`E1/T<n>_*.ipynb`, `E1/salidas/{figuras,tablas}/T<n>_*`).
+- `E1/README.md`: lo que pide el Word organizado en una checklist (códigos W, P, S, R), tabla de productos con su dueño, rúbrica, tareas T1–T4, **contrato de tablas por sector** (`T<n>_por_sector.csv`, para que el ranking de inspección no espere a nadie), cronograma relativo, convenciones y el formato de hallazgo (observación, hipótesis, decisión).
+- `E1/tareas/T<n>_*.md`: una tarea por persona, diseñadas para no bloquearse entre sí. Cada una escribe solo en sus propios archivos (`E1/T<n>_*.ipynb`, `E1/salidas/{figuras,tablas}/T<n>_*`). Los productos del Word usan el nombre exacto y tienen un solo dueño.
 - `E1/comun.py`: única dependencia compartida.
   - `verificar_hashes()`, `cargar_lotes()` (strings + columna `lote`) y `cargar_tabla()`.
   - `parse_exploratorio()`: tipado sin borrar filas, columnas `volumen_*_m3`, columnas `*_raw` y flags `_…` por cada problema de formato.
   - `PALETA` y `NOTA_FUENTE` para los gráficos.
   - Los notebooks van en `E1/` para que `import comun` funcione directo.
-- El notebook entregable es la sección E1 de `00_inicio.ipynb`, que integra T1 al final. `E1/diagnostico.md` es el documento de hasta 3 páginas y `E1/uso_ia.md` la declaración de IA, que se actualiza cada vez que se usa IA.
+- T1 integra el notebook entregable en `E1/E1_diagnostico.ipynb`. `E1/diagnostico.md` se exporta a `E1/Diagnostico.pdf` (máx. 5 páginas). `E1/uso_ia.md` es la declaración de IA y se actualiza cada vez que se usa IA.
 
 Skills del proyecto, reutilizables en E1–E4. Se invocan con `/nombre` en Claude Code y con `$nombre` en Codex, que también las activa solo según su descripción:
-- `perfil-calidad`: reglas de calidad con denominadores, en el formato de `plantilla_reglas_calidad.csv`.
-- `grafico-diagnostico`: convenciones de gráficos e interpretación obligatoria.
-- `revisar-entrega E<n>`: auditoría de solo lectura de la checklist.
+- `perfil-calidad`: `perfil_calidad.csv` y `matriz_reglas.csv` por lote y segmento, con denominadores y la clasificación defecto / extremo plausible / ausencia estructural.
+- `ficha-indicador`: fichas de KPI y métricas de calidad en el formato de `plantilla_fichas_indicadores.csv`; verifica que la fórmula sea computable.
+- `grafico-diagnostico`: convenciones de gráficos e interpretación obligatoria (observación, hipótesis, decisión).
+- `revisar-entrega E<n>`: auditoría de solo lectura contra el Word, la checklist y la rúbrica.
 
-Pendientes para cuando llegue la E2 o la E3: `bitacora` y `ficha-indicador`.
+Pendiente para cuando llegue la E2: `bitacora`.
 
 ## Claude Code y Codex en paralelo
 
