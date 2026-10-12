@@ -1,8 +1,20 @@
 # T2: Calidad, métricas de calidad y ranking de inspección
 
-**Responsable:** ____________
+**Responsable:** Byron
 **Ítems del Word:** W5, W6 (6 métricas de calidad), S1, S2, P4 · **Rúbrica:** "Calidad y pertinencia" (30 pts)
-**Notebook de trabajo:** `E1/T2_calidad.ipynb`
+**Notebook de trabajo:** `E1/T2_calidad.ipynb` · **Módulo:** `E1/T2_reglas.py` (reglas reutilizables en E2 y E4)
+**Decisiones:** [D-01 atraso = 2 h](../decisiones.md), [D-02 tipo de inspección](../decisiones.md), [D-03 el ranking espera a T3 y T4](../decisiones.md)
+
+## Estado
+
+| Parte | Estado |
+|---|---|
+| A. Perfil y matriz de reglas | **Listo:** `matriz_reglas.csv` (76 filas, 27 reglas), `perfil_calidad.csv` (1.287 filas), `T2_sesgo_kpi.csv` y 4 figuras `T2_*.png`. Todo se genera al ejecutar `T2_calidad.ipynb` |
+| B. 6 métricas de calidad | **Listo:** `T2_fichas_calidad.csv` (KRI-01…06, `v0-E1`), con valores calculados en el notebook (sección 6) |
+| Tabla por sector | **Listo:** `T2_por_sector.csv` (30 sectores, ago–dic, contrato del README) |
+| C. Ranking de inspección | **Bloqueada por T3/T4:** el código (`T2_reglas.ranking` / `comparar_rankings`) está listo y probado con datos de prueba; se ejecuta en la consolidación (ver [README](../README.md#pendientes-y-consolidación)) |
+
+**Nota sobre la cobertura:** la regla RQ-COM-02 y la métrica KRI-01 usan una cobertura simple por lote (lectura válida = fecha válida dentro del período, sector del catálogo, sin copia ni sector-hora repetida). No reemplaza el análisis de cobertura de T3; se cruza con el de T3 en la consolidación.
 **Productos:** `salidas/tablas/perfil_calidad.csv`, `salidas/tablas/matriz_reglas.csv`, `salidas/tablas/T2_fichas_calidad.csv`, `salidas/tablas/T2_por_sector.csv`, `salidas/tablas/T2_ranking.csv`
 **Skills:** `/perfil-calidad`, `/ficha-indicador` (Codex: `$perfil-calidad`, `$ficha-indicador`)
 
@@ -91,4 +103,45 @@ Con `/ficha-indicador`. Propuesta inicial, que el equipo puede ajustar en el che
 
 ## Hallazgos candidatos
 
-<!-- Usar el formato del README: H<n>, Observación, Gráfico o tabla, Período · unidad · población, Hipótesis, Decisión o acción, Limitación, Dimensión -->
+### H1: Ago–dic es el lote menos confiable y llega 2,6 veces más atrasado
+- **Observación:**
+  - 21.379 de 99.800 lecturas de ago–dic (21,4%) llegan con más de 2 h de atraso, contra 10.801 de 130.841 en ene–jun (8,3%). Ago–dic es peor con cualquier umbral (1, 3 o 6 h).
+  - Ago–dic trae además 7 tipos de defecto que no existían en ene–jul (coma decimal, fecha dd/mm, `PENDIENTE`, unidad desconocida, 90 min de interrupción, salida > entrada, carga antes de la hora medida).
+  - Ago–dic tiene 10.660 de 110.160 sector-horas sin lectura válida (9,7%), contra 0,3% en ene–jul. Esta cifra se cruza con T3 en la consolidación.
+- **Gráfico o tabla:** `salidas/figuras/T2_atraso_carga.png`, `salidas/figuras/T2_reglas_por_lote.png`, `salidas/tablas/matriz_reglas.csv`
+- **Período · unidad · población:** ene–dic 2025 UTC por lote · % de filas · lecturas con fecha y `cargado_en` válidos (253.051)
+- **Hipótesis:** el lote de ampliación pasó por otro proceso de captura o integración (otros formatos, demora de transmisión, problema de reloj). Los datos no permiten afirmarlo.
+- **Decisión o acción:**
+  - los KPI de ago–dic, que es el período del ranking, deben reportarse con su cobertura;
+  - en la E2, convertir los formatos recuperables con su regla documentada y excluir los defectos sin imputar.
+- **Limitación:** el % exacto de atraso depende de interpretar `"latency": 2` como horas ([D-01](../decisiones.md)). La comparación entre lotes no depende de esa decisión.
+- **Dimensión:** confiabilidad
+
+### H2: En ago–dic los volúmenes vacíos son de 10 sectores (A-S20 a A-S29), candidatos a "sensor primero"
+- **Observación:**
+  - los 2.200 volúmenes de entrada vacíos de ago–dic están **todos** en A-S20 a A-S29: son 2.200 de sus 31.645 lecturas (6,95%), y en los otros 20 sectores hay 0;
+  - en ene–jul, en cambio, los nulos se reparten parejo (≈ 1% por sector);
+  - por eso A-S20 a A-S29 tienen entre 8,1% y 9,6% de filas con defecto, contra 1,7–2,7% del resto;
+  - A-S26 a A-S29 además tienen menos filas (≈ 2.800 vs. ≈ 3.400), lo que sugiere menor cobertura (a confirmar con T3).
+- **Gráfico o tabla:** `salidas/figuras/T2_nulos_por_sector.png`, `salidas/tablas/T2_por_sector.csv`
+- **Período · unidad · población:** ago–dic 2025 UTC (vs. ene–jul) · % de lecturas del sector · lecturas de los 30 sectores del catálogo
+- **Hipótesis:** una falla de medición o transmisión que afecta a ese grupo de sectores desde agosto.
+- **Decisión o acción:** según D-02, si alguno de estos sectores queda entre los 3 prioritarios, se inspecciona **primero el sensor** (umbral: 2 × la mediana de % de defectos ≈ 4,6%). En la E2, los nulos no se imputan.
+- **Limitación:** un volumen vacío no dice si el sector tuvo problemas operacionales. El promedio de las lecturas disponibles de esos sectores puede ocultar justamente las horas con fallas.
+- **Dimensión:** confiabilidad
+
+### H3: Sumar litros como m3 hunde kWh/m3 en un 99,4%; los demás errores mueven la continuidad en décimas que importan frente a la meta
+- **Observación** (ene–dic, lecturas válidas):
+  - 43.020 de 253.404 filas (17,0%) vienen en litros; si no se convierten, kWh/m3 cae de 0,265 a 0,0015 (−99,4%);
+  - incluir las entradas negativas y salida > entrada baja la diferencia de volúmenes de 16,10% a 15,33% (−0,77 puntos; −0,90 en ago–dic);
+  - en la continuidad simple, incluir los minutos > 60 la baja 0,21 puntos (0,52 en ago–dic), y tratar las horas sin lectura como 0 minutos sin agua la sube 0,07 puntos (0,20 en ago–dic).
+- **Gráfico o tabla:** `salidas/figuras/T2_sesgo_kpi.png`, `salidas/tablas/T2_sesgo_kpi.csv`
+- **Período · unidad · población:** ene–dic 2025 UTC (y ago–dic) · kWh/m3, % y puntos porcentuales · lecturas válidas de los 3 lotes
+- **Hipótesis:** no aplica. Es un cálculo de sensibilidad del tratamiento, no una observación del negocio.
+- **Decisión o acción** (plan de limpieza para la E2):
+  - convertir L → m3 antes de cualquier suma y excluir la unidad desconocida;
+  - excluir entradas negativas y salida > entrada;
+  - tratar las horas con minutos > 60 como desconocidas;
+  - reportar la continuidad con límites 0/60 (T3) en lugar de suponer 0 minutos en las horas ausentes.
+- **Limitación:** la referencia es provisional (las fórmulas oficiales son de T4), y la continuidad simple no pondera por conexiones (la oficial es de T3).
+- **Dimensión:** energía, volúmenes y continuidad

@@ -158,10 +158,30 @@ Cada tarea los escribe al final de su `tareas/T<n>_*.md`. Cumple R2 y R3:
 - Dimensión: continuidad | volúmenes | energía | confiabilidad
 ```
 
-## Integración final (T1, desde el D-4)
+## Pendientes y consolidación
 
-1. En el checkpoint se eligen los hallazgos. Se redactan en [diagnostico.md](diagnostico.md) y se exporta a `E1/Diagnostico.pdf` (**máx. 5 páginas**), con el editor que prefieran.
-2. Armar `E1/E1_diagnostico.ipynb` (en `E1/`, para que funcione `import comun`) copiando las celdas que respaldan cada ítem de la checklist, con texto interpretativo entre ellas. Orden sugerido:
+Hay trabajo que **no se puede cerrar dentro de una sola tarea**, porque necesita resultados de otra. Todo eso se registra aquí, para que el grupo sepa qué falta y quién lo hace. **Cada uno actualiza la columna "Estado" de sus filas al avanzar.** Las decisiones que no venían definidas en el Word están en [decisiones.md](decisiones.md).
+
+### Pendientes entre tareas
+
+| Pendiente | Depende de | Dueño | Estado |
+|---|---|---|---|
+| Ranking real de las 3 inspecciones (P4), con y sin filtro de cobertura | `T3_por_sector.csv` y `T4_por_sector.csv` | T2 (Byron) | Bloqueado: el código está listo y probado con datos de prueba ([D-03](decisiones.md)) |
+| Valor oficial de KRI-01 (cobertura) y cruce de RQ-COM-02 con la cobertura de T3 (misma definición de "lectura válida") | Cobertura de T3 | T2 + T3 | Pendiente |
+| Corregir "10.000" → **10.160** sector-horas sin recepción en ago–dic (110.160 − 100.000) en `T1_inventario.ipynb` / `T1_preparar.py`; `minutos_interrupcion` es cuantitativa **discreta** (todos sus valores son enteros) | — | T1 (José) | Pendiente |
+| Unir `T4_fichas_kpi.csv` + `T2_fichas_calidad.csv` → `fichas_indicadores.csv` | T2 y T4 | T1 | Pendiente |
+| Elegir los hallazgos finales del diagnóstico | T1–T4 | Todos (checkpoint) | Pendiente |
+
+### Tarea de consolidación (cuando T1–T4 estén listas)
+
+Es una tarea de todo el grupo, con dueños por paso. Se hace después del checkpoint, desde el D-4:
+
+1. **Verificar los insumos:** existen `T2_por_sector.csv`, `T3_por_sector.csv` y `T4_por_sector.csv`, cada uno con 30 filas y las columnas del contrato.
+2. **Ranking real (T2):** correr `T2_reglas.ranking(...)` con las tres tablas, con y sin filtro de cobertura. Guardar `T2_ranking.csv` y la figura, y entregar el texto de `diagnostico.md` §5.
+3. **Cruzar las cifras compartidas (T2 + T3):** que la cobertura de T2 (RQ-COM-02) y la de T3 coincidan, y que los totales de filas cuadren. Anotar y explicar cualquier diferencia.
+4. **Fichas (T1):** unir `T4_fichas_kpi.csv` + `T2_fichas_calidad.csv` → `salidas/tablas/fichas_indicadores.csv`.
+5. **Diagnóstico (T1):** en el checkpoint se eligen los hallazgos. Se redactan en [diagnostico.md](diagnostico.md), con el plan de limpieza desde `matriz_reglas.csv`, y se exporta a `E1/Diagnostico.pdf` (**máx. 5 páginas**).
+6. **Notebook (T1):** armar `E1/E1_diagnostico.ipynb` (en `E1/`, para que funcione `import comun`; los módulos `T2_reglas.py` u otros se pueden importar igual) con las celdas que respaldan cada ítem de la checklist, en este orden:
    1. carga y hashes;
    2. inventario;
    3. diccionario y contratos;
@@ -171,9 +191,10 @@ Cada tarea los escribe al final de su `tareas/T<n>_*.md`. Cumple R2 y R3:
    7. costo por m3;
    8. KPI y métricas;
    9. ranking.
-3. Unir `T4_fichas_kpi.csv` + `T2_fichas_calidad.csv` → `salidas/tablas/fichas_indicadores.csv`.
-4. Reiniciar el kernel y ejecutar todo. Después, otra persona lo ejecuta desde una sesión nueva (R1).
-5. **Confirmar con el profe el formato de entrega.** Si se entregan archivos sueltos y no el repo, `comun.py` debe ir junto al notebook, o hay que pegar su contenido en la primera celda.
+7. **Reproducibilidad (R1):** reiniciar el kernel y ejecutar todo. Después, **otra persona** lo ejecuta desde una sesión nueva.
+8. **Revisión final:** `/revisar-entrega E1` (Codex: `$revisar-entrega E1`) y entrega.
+
+**Confirmar con el profe el formato de entrega.** Si se entregan archivos sueltos y no el repo, `comun.py` y los módulos `T<n>_*.py` deben ir junto al notebook.
 
 ## Skills (Claude Code y Codex)
 

@@ -1,0 +1,65 @@
+alcance,kpi,escenario,valor,referencia,delta,delta_relativo_pct
+total,diferencia_volumenes_pct,Referencia (tratamiento correcto),16.1042,16.1042,0.0,0.0
+total,kwh_por_m3,Referencia (tratamiento correcto),0.2651,0.2651,0.0,0.0
+total,continuidad_simple_pct,Referencia (tratamiento correcto),98.3933,98.3933,0.0,0.0
+total,diferencia_volumenes_pct,Sin convertir litros a m3,16.3605,16.1042,0.2563,1.59
+total,kwh_por_m3,Sin convertir litros a m3,0.0015,0.2651,-0.2636,-99.42
+total,continuidad_simple_pct,Sin convertir litros a m3,98.3933,98.3933,0.0,0.0
+total,diferencia_volumenes_pct,Sin deduplicar copias exactas,16.1001,16.1042,-0.0041,-0.03
+total,kwh_por_m3,Sin deduplicar copias exactas,0.2652,0.2651,0.0,0.0
+total,continuidad_simple_pct,Sin deduplicar copias exactas,98.3938,98.3933,0.0005,0.0
+total,diferencia_volumenes_pct,Incluyendo entrada negativa y salida > entrada,15.333,16.1042,-0.7712,-4.79
+total,kwh_por_m3,Incluyendo entrada negativa y salida > entrada,0.2673,0.2651,0.0022,0.82
+total,continuidad_simple_pct,Incluyendo entrada negativa y salida > entrada,98.3933,98.3933,0.0,0.0
+total,diferencia_volumenes_pct,Incluyendo minutos > 60,16.1042,16.1042,0.0,0.0
+total,kwh_por_m3,Incluyendo minutos > 60,0.2651,0.2651,0.0,0.0
+total,continuidad_simple_pct,Incluyendo minutos > 60,98.1869,98.3933,-0.2064,-0.21
+total,continuidad_simple_pct,Horas sin lectura tratadas como 0 min de interrupción,98.4634,98.3933,0.0701,0.07
+base,diferencia_volumenes_pct,Referencia (tratamiento correcto),14.5547,14.5547,0.0,0.0
+base,kwh_por_m3,Referencia (tratamiento correcto),0.2664,0.2664,0.0,0.0
+base,continuidad_simple_pct,Referencia (tratamiento correcto),98.6733,98.6733,0.0,0.0
+base,diferencia_volumenes_pct,Sin convertir litros a m3,14.5861,14.5547,0.0314,0.22
+base,kwh_por_m3,Sin convertir litros a m3,0.0023,0.2664,-0.2641,-99.14
+base,continuidad_simple_pct,Sin convertir litros a m3,98.6733,98.6733,0.0,0.0
+base,diferencia_volumenes_pct,Sin deduplicar copias exactas,14.5547,14.5547,-0.0,-0.0
+base,kwh_por_m3,Sin deduplicar copias exactas,0.2664,0.2664,0.0,0.0
+base,continuidad_simple_pct,Sin deduplicar copias exactas,98.6726,98.6733,-0.0007,-0.0
+base,diferencia_volumenes_pct,Incluyendo entrada negativa y salida > entrada,13.862,14.5547,-0.6927,-4.76
+base,kwh_por_m3,Incluyendo entrada negativa y salida > entrada,0.2685,0.2664,0.0022,0.81
+base,continuidad_simple_pct,Incluyendo entrada negativa y salida > entrada,98.6733,98.6733,0.0,0.0
+base,diferencia_volumenes_pct,Incluyendo minutos > 60,14.5547,14.5547,0.0,0.0
+base,kwh_por_m3,Incluyendo minutos > 60,0.2664,0.2664,0.0,0.0
+base,continuidad_simple_pct,Incluyendo minutos > 60,98.6733,98.6733,0.0,0.0
+base,continuidad_simple_pct,Horas sin lectura tratadas como 0 min de interrupción,98.6773,98.6733,0.004,0.0
+actualizacion,diferencia_volumenes_pct,Referencia (tratamiento correcto),16.1286,16.1286,0.0,0.0
+actualizacion,kwh_por_m3,Referencia (tratamiento correcto),0.2617,0.2617,0.0,0.0
+actualizacion,continuidad_simple_pct,Referencia (tratamiento correcto),98.4669,98.4669,0.0,0.0
+actualizacion,diferencia_volumenes_pct,Sin convertir litros a m3,15.1192,16.1286,-1.0093,-6.26
+actualizacion,kwh_por_m3,Sin convertir litros a m3,0.0015,0.2617,-0.2602,-99.42
+actualizacion,continuidad_simple_pct,Sin convertir litros a m3,98.4669,98.4669,0.0,0.0
+actualizacion,diferencia_volumenes_pct,Sin deduplicar copias exactas,16.1271,16.1286,-0.0015,-0.01
+actualizacion,kwh_por_m3,Sin deduplicar copias exactas,0.2617,0.2617,0.0,0.0
+actualizacion,continuidad_simple_pct,Sin deduplicar copias exactas,98.4683,98.4669,0.0014,0.0
+actualizacion,diferencia_volumenes_pct,Incluyendo entrada negativa y salida > entrada,15.4489,16.1286,-0.6797,-4.21
+actualizacion,kwh_por_m3,Incluyendo entrada negativa y salida > entrada,0.2638,0.2617,0.0021,0.81
+actualizacion,continuidad_simple_pct,Incluyendo entrada negativa y salida > entrada,98.4669,98.4669,0.0,0.0
+actualizacion,diferencia_volumenes_pct,Incluyendo minutos > 60,16.1286,16.1286,0.0,0.0
+actualizacion,kwh_por_m3,Incluyendo minutos > 60,0.2617,0.2617,0.0,0.0
+actualizacion,continuidad_simple_pct,Incluyendo minutos > 60,98.4669,98.4669,0.0,0.0
+actualizacion,continuidad_simple_pct,Horas sin lectura tratadas como 0 min de interrupción,98.4715,98.4669,0.0046,0.0
+ampliacion,diferencia_volumenes_pct,Referencia (tratamiento correcto),18.1815,18.1815,0.0,0.0
+ampliacion,kwh_por_m3,Referencia (tratamiento correcto),0.2643,0.2643,0.0,0.0
+ampliacion,continuidad_simple_pct,Referencia (tratamiento correcto),98.0098,98.0098,0.0,0.0
+ampliacion,diferencia_volumenes_pct,Sin convertir litros a m3,17.6827,18.1815,-0.4988,-2.74
+ampliacion,kwh_por_m3,Sin convertir litros a m3,0.0011,0.2643,-0.2632,-99.6
+ampliacion,continuidad_simple_pct,Sin convertir litros a m3,98.0098,98.0098,0.0,0.0
+ampliacion,diferencia_volumenes_pct,Sin deduplicar copias exactas,18.1815,18.1815,0.0,0.0
+ampliacion,kwh_por_m3,Sin deduplicar copias exactas,0.2643,0.2643,0.0,0.0
+ampliacion,continuidad_simple_pct,Sin deduplicar copias exactas,98.0098,98.0098,0.0,0.0
+ampliacion,diferencia_volumenes_pct,Incluyendo entrada negativa y salida > entrada,17.2772,18.1815,-0.9042,-4.97
+ampliacion,kwh_por_m3,Incluyendo entrada negativa y salida > entrada,0.2666,0.2643,0.0022,0.85
+ampliacion,continuidad_simple_pct,Incluyendo entrada negativa y salida > entrada,98.0098,98.0098,0.0,0.0
+ampliacion,diferencia_volumenes_pct,Incluyendo minutos > 60,18.1815,18.1815,0.0,0.0
+ampliacion,kwh_por_m3,Incluyendo minutos > 60,0.2643,0.2643,0.0,0.0
+ampliacion,continuidad_simple_pct,Incluyendo minutos > 60,97.4892,98.0098,-0.5206,-0.53
+ampliacion,continuidad_simple_pct,Horas sin lectura tratadas como 0 min de interrupción,98.2087,98.0098,0.1989,0.2
