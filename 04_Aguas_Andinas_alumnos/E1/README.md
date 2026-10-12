@@ -16,12 +16,12 @@ La fuente principal es **[entregas/Aguas_Andinas_E1_Diagnostico.docx](../entrega
 
 | Producto | Ruta en el repo | Dueño |
 |---|---|---|
-| `E1_diagnostico.ipynb`, ejecutado desde cero con los 3 lotes y las tablas complementarias | `E1/E1_diagnostico.ipynb` | T1 (integra) |
-| `Diagnostico.pdf`, **máx. 5 páginas**: audiencia, decisión, hallazgos, límites y plan de limpieza | `E1/Diagnostico.pdf` (se exporta desde [diagnostico.md](diagnostico.md)) | T1 |
+| `E1_diagnostico.ipynb`, ejecutado desde cero con los 3 lotes y las tablas complementarias | `E1/E1_diagnostico.ipynb` | T5 (integra) |
+| `Diagnostico.pdf`, **máx. 5 páginas**: audiencia, decisión, hallazgos, límites y plan de limpieza | `E1/Diagnostico.pdf` (se exporta desde [diagnostico.md](diagnostico.md)) | T5 (§1, §2 y §6 de T1) |
 | Diccionario revisado | `E1/salidas/tablas/diccionario_revisado.csv` | T1 |
 | `perfil_calidad.csv` | `E1/salidas/tablas/perfil_calidad.csv` | T2 |
 | `matriz_reglas.csv`: campo, regla, severidad, denominador, tratamiento propuesto, justificación | `E1/salidas/tablas/matriz_reglas.csv` | T2 |
-| Fichas preliminares de **6 KPI** y **6 métricas de calidad**, con trazabilidad a columnas, poblaciones y decisiones | `E1/salidas/tablas/fichas_indicadores.csv` (une `T4_fichas_kpi.csv` + `T2_fichas_calidad.csv`) | T4 + T2; T1 las une |
+| Fichas preliminares de **6 KPI** y **6 métricas de calidad**, con trazabilidad a columnas, poblaciones y decisiones | `E1/salidas/tablas/fichas_indicadores.csv` (une `T4_fichas_kpi.csv` + `T2_fichas_calidad.csv`) | T4 + T2; T5 las une |
 
 ## Rúbrica (100 puntos)
 
@@ -32,7 +32,7 @@ Cada criterio se califica con 100, 75, 50, 25 o 0% de sus puntos.
 | Audiencia y preguntas | 25 | Audiencias, decisión y preguntas medibles conectadas al encargo | T1 |
 | EDA y granularidad | 30 | EDA temporal y segmentado; claves y unidades correctas; **ceros y nulos diferenciados** | T4, T3 (+ inventario de T1) |
 | Calidad y pertinencia | 30 | 6 métricas de calidad, **sesgo de faltantes**, reglas justificadas con impacto previsto en los KPI | T2, T3 |
-| Reproducibilidad y claridad | 15 | Notebook reproducible, diccionario, rutas y límites consistentes | T1 + todos |
+| Reproducibilidad y claridad | 15 | Notebook reproducible, diccionario, rutas y límites consistentes | T5 + T1 (diccionario) |
 
 ## Checklist completa
 
@@ -70,19 +70,20 @@ Los códigos (W, P, S, R) siguen las secciones del Word.
 
 | # | Requisito | Quién |
 |---|---|---|
-| R1 | Un compañero ejecuta `E1_diagnostico.ipynb` **desde una sesión nueva** sin errores | Alguien que no integró |
-| R2 | Cada hallazgo señala gráfico o tabla, período, unidad, población y una limitación | T1 |
-| R3 | Se separan **observación, hipótesis y decisión** | T1 |
+| R1 | Un compañero ejecuta `E1_diagnostico.ipynb` **desde una sesión nueva** sin errores | Alguien que no sea Byron (T5) |
+| R2 | Cada hallazgo señala gráfico o tabla, período, unidad, población y una limitación | T5 |
+| R3 | Se separan **observación, hipótesis y decisión** | T5 |
 | R4 | Uso de IA declarado y verificado ([uso_ia.md](uso_ia.md)) | Todos |
 
 ## División del trabajo
 
 | Tarea | Foco | Ítems del Word | Responsable |
 |---|---|---|---|
-| [T1](tareas/T1_pregunta_diccionario.md) | Necesidades, inventario, diccionario y contratos + **integración** (notebook, PDF, fichas) | W1, W2, W3, límites de W6, R2, R3 | |
-| [T2](tareas/T2_calidad.md) | Calidad por lote y segmento, 6 métricas de calidad + **ranking de inspección** | W5, W6 (calidad), S1, S2, P4 | |
+| [T1](tareas/T1_pregunta_diccionario.md) | Necesidades, inventario, diccionario y contratos | W1, W2, W3, límites de W6 | José |
+| [T2](tareas/T2_calidad.md) | Calidad por lote y segmento, 6 métricas de calidad + código del **ranking de inspección** | W5, W6 (calidad), S1, S2, P4 | Byron |
 | [T3](tareas/T3_cobertura_catalogos.md) | Cobertura, continuidad con límites 0/60, heatmap, catálogos y vigencias | W4f, P1, P3, S3 | |
 | [T4](tareas/T4_eda_negocio.md) | EDA de negocio (5 análisis), costo por m3, 6 KPI | W4a–e, P2, W6 (KPI) | |
+| [T5](tareas/T5_consolidacion.md) | **Consolidación:** pendientes de T1–T4, ranking real, notebook final, PDF, fichas unidas y carpeta entregable ([T5_consolidar.py](T5_consolidar.py)) | 4 productos, R1–R4, P4 (ranking real) | Byron |
 
 ### Contrato de tablas por sector (para que el ranking no espere a nadie)
 
@@ -103,9 +104,9 @@ Cada tarea publica una **versión preliminar a más tardar el D-7**, aunque los 
 | D-10 | Kickoff de 15 min: repartir T1–T4 (anotar los nombres arriba), confirmar el período del ranking y que todos corran el setup | Todos |
 | D-10 a D-5 | Trabajo en paralelo. **D-7:** versión preliminar de `T<n>_por_sector.csv` | Cada uno |
 | **D-5** | **Checkpoint:** hallazgos candidatos, cierre de la lista de 6 KPI + 6 métricas de calidad y ranking preliminar | Todos |
-| D-4 a D-2 | T1 redacta el diagnóstico, integra el notebook y une las fichas. T2 cierra el ranking con y sin filtro. T3 y T4 pulen figuras y textos | Todos |
-| D-1 | R1 (otro compañero ejecuta el notebook desde una sesión nueva), `/revisar-entrega E1` y exportar `Diagnostico.pdf` | T1 + quien esté libre |
-| D-0 | Entrega | T1 |
+| D-4 a D-2 | **T5:** ranking real, unión de fichas, diagnóstico y notebook final. T1–T4 ajustan lo que T5 les pida y pulen figuras y textos | T5 + todos |
+| D-1 | R1 (otro compañero ejecuta el notebook desde una sesión nueva), `/revisar-entrega E1`, exportar `Diagnostico.pdf` y `T5_consolidar.py --empaquetar` + `--probar` | T5 + quien esté libre |
+| D-0 | Entrega | T5 |
 
 ## Setup (una vez por persona)
 
@@ -169,32 +170,16 @@ Hay trabajo que **no se puede cerrar dentro de una sola tarea**, porque necesita
 | Ranking real de las 3 inspecciones (P4), con y sin filtro de cobertura | `T3_por_sector.csv` y `T4_por_sector.csv` | T2 (Byron) | Bloqueado: el código está listo y probado con datos de prueba ([D-03](decisiones.md)) |
 | Valor oficial de KRI-01 (cobertura) y cruce de RQ-COM-02 con la cobertura de T3 (misma definición de "lectura válida") | Cobertura de T3 | T2 + T3 | Pendiente |
 | Corregir "10.000" → **10.160** sector-horas sin recepción en ago–dic (110.160 − 100.000) en `T1_inventario.ipynb` / `T1_preparar.py`; `minutos_interrupcion` es cuantitativa **discreta** (todos sus valores son enteros) | — | T1 (José) | Pendiente |
-| Unir `T4_fichas_kpi.csv` + `T2_fichas_calidad.csv` → `fichas_indicadores.csv` | T2 y T4 | T1 | Pendiente |
+| Unir `T4_fichas_kpi.csv` + `T2_fichas_calidad.csv` → `fichas_indicadores.csv` | T2 y T4 | T5 | Pendiente |
 | Elegir los hallazgos finales del diagnóstico | T1–T4 | Todos (checkpoint) | Pendiente |
 
-### Tarea de consolidación (cuando T1–T4 estén listas)
+### Tarea de consolidación → [T5](tareas/T5_consolidacion.md)
 
-Es una tarea de todo el grupo, con dueños por paso. Se hace después del checkpoint, desde el D-4:
+La consolidación es la **T5** (responsable: Byron, [D-04](decisiones.md)). Sus pasos, comandos y la lista de lo que se entrega están en [tareas/T5_consolidacion.md](tareas/T5_consolidacion.md). Para ver en cualquier momento qué falta para entregar:
 
-1. **Verificar los insumos:** existen `T2_por_sector.csv`, `T3_por_sector.csv` y `T4_por_sector.csv`, cada uno con 30 filas y las columnas del contrato.
-2. **Ranking real (T2):** correr `T2_reglas.ranking(...)` con las tres tablas, con y sin filtro de cobertura. Guardar `T2_ranking.csv` y la figura, y entregar el texto de `diagnostico.md` §5.
-3. **Cruzar las cifras compartidas (T2 + T3):** que la cobertura de T2 (RQ-COM-02) y la de T3 coincidan, y que los totales de filas cuadren. Anotar y explicar cualquier diferencia.
-4. **Fichas (T1):** unir `T4_fichas_kpi.csv` + `T2_fichas_calidad.csv` → `salidas/tablas/fichas_indicadores.csv`.
-5. **Diagnóstico (T1):** en el checkpoint se eligen los hallazgos. Se redactan en [diagnostico.md](diagnostico.md), con el plan de limpieza desde `matriz_reglas.csv`, y se exporta a `E1/Diagnostico.pdf` (**máx. 5 páginas**).
-6. **Notebook (T1):** armar `E1/E1_diagnostico.ipynb` (en `E1/`, para que funcione `import comun`; los módulos `T2_reglas.py` u otros se pueden importar igual) con las celdas que respaldan cada ítem de la checklist, en este orden:
-   1. carga y hashes;
-   2. inventario;
-   3. diccionario y contratos;
-   4. calidad;
-   5. cobertura y continuidad;
-   6. EDA;
-   7. costo por m3;
-   8. KPI y métricas;
-   9. ranking.
-7. **Reproducibilidad (R1):** reiniciar el kernel y ejecutar todo. Después, **otra persona** lo ejecuta desde una sesión nueva.
-8. **Revisión final:** `/revisar-entrega E1` (Codex: `$revisar-entrega E1`) y entrega.
-
-**Confirmar con el profe el formato de entrega.** Si se entregan archivos sueltos y no el repo, `comun.py` y los módulos `T<n>_*.py` deben ir junto al notebook.
+```bash
+cd 04_Aguas_Andinas_alumnos/E1 && ../.venv/bin/python T5_consolidar.py
+```
 
 ## Skills (Claude Code y Codex)
 

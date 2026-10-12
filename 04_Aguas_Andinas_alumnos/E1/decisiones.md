@@ -57,3 +57,14 @@ Aquí se anotan las decisiones del grupo que **no estaban definidas** en el Word
 - **Decisión:** (b). El código del ranking queda listo y probado con **datos de prueba inventados** (no se publica ningún ranking con ellos). Se ejecuta con datos reales en la **tarea de consolidación**.
 - **Consecuencias:** el ranking queda registrado como pendiente en la sección "Pendientes y consolidación" del [README](README.md).
 - **Dónde se aplica:** `README.md` (pendientes y consolidación) y `tareas/T2_calidad.md`.
+
+## D-04: La consolidación es una tarea propia (T5), a cargo de Byron
+
+- **Fecha / quién:** 2026-10-11 · Byron
+- **Qué era ambiguo:** la integración final (notebook, PDF, unión de fichas) estaba dentro de la T1 (José), el ranking real en la T2 y los pasos de cierre repartidos en el README, sin una persona responsable de que todo calce ni de armar lo que se sube al profe.
+- **Alternativas:**
+  - (a) mantener la integración en la T1;
+  - (b) crear una T5 de consolidación con un responsable.
+- **Decisión:** (b). La T5 la lleva Byron e incluye: cerrar los pendientes de T1–T4, ranking real, cruce de cifras entre tareas, unión de fichas, diagnóstico y PDF, notebook final, versiones probadas y carpeta entregable. La T1 queda con sus partes A–C y los límites (§6). Se agrega el script `T5_consolidar.py`, que revisa qué falta y arma y prueba el .zip.
+- **Consecuencias:** como Byron integra, la prueba R1 (ejecutar el notebook desde una sesión nueva) la hace otra persona del grupo.
+- **Dónde se aplica:** `tareas/T5_consolidacion.md`, `tareas/T1_pregunta_diccionario.md`, `README.md` (división, productos, cronograma y consolidación).

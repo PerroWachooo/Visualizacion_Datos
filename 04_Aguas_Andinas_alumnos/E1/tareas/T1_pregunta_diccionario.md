@@ -1,14 +1,14 @@
-# T1: Necesidades, inventario, diccionario e integración
+# T1: Necesidades, inventario y diccionario
 
 **Responsable:** José Marín
-**Ítems del Word:** W1, W2, W3, límites de W6, R2, R3 · **Rúbrica:** "Audiencia y preguntas" (25 pts) y "Reproducibilidad y claridad" (15 pts)
+**Ítems del Word:** W1, W2, W3, límites de W6 · **Rúbrica:** "Audiencia y preguntas" (25 pts) y diccionario de "Reproducibilidad y claridad"
 **Notebook de trabajo:** `E1/T1_inventario.ipynb`
-**Productos:** `salidas/tablas/diccionario_revisado.csv`, `Diagnostico.pdf`, `E1_diagnostico.ipynb`, `salidas/tablas/fichas_indicadores.csv` (unión)
+**Productos:** `salidas/tablas/diccionario_revisado.csv` y las secciones §1, §2 y §6 de `diagnostico.md`
+**Nota:** la integración (notebook final, PDF, unión de fichas y carpeta entregable) pasó a la [T5](T5_consolidacion.md) ([D-04](../decisiones.md)).
 
 ## Objetivo
 
-Dejar claro **para quién y para qué** es el análisis, describir con precisión **qué contiene la fuente** y fijar **contratos de datos** que el resto pueda medir. Desde el D-4, convertir el trabajo del equipo en el diagnóstico y en el notebook entregable.
-
+Dejar claro **para quién y para qué** es el análisis, describir con precisión **qué contiene la fuente** y fijar **contratos de datos** que el resto pueda medir.
 ## Insumos
 
 - [Word de la E1](../../entregas/Aguas_Andinas_E1_Diagnostico.docx) y [00_Enunciado_general.docx](../../00_Enunciado_general.docx).
@@ -64,20 +64,17 @@ Revisar en especial **ID, fecha de negocio y fecha de carga** (lo pide el Word):
 - `m2025_01`…`m2025_12`: son **valores** de una variable "mes" guardados como columnas (formato ancho, no tidy).
 - `conexiones`: es un peso con vigencia y no se suma por hora.
 
-## Parte D: integración (desde el D-4)
+## Parte D: integración → pasó a la T5
 
-1. Elegir los hallazgos con el equipo en el checkpoint del D-5. Cada uno debe tener observación, hipótesis, decisión, gráfico o tabla, período, unidad, población y limitación (R2, R3).
-2. Redactar [diagnostico.md](../diagnostico.md), con **≥ 2 límites de interpretación** (W6) y el **plan de limpieza** (desde `matriz_reglas.csv`), y exportar a `E1/Diagnostico.pdf` (**máx. 5 páginas**).
-3. Armar `E1/E1_diagnostico.ipynb` (ver "Integración final" en el [README](../README.md)).
-4. Unir `T4_fichas_kpi.csv` + `T2_fichas_calidad.csv` → `fichas_indicadores.csv`.
-5. Completar [uso_ia.md](../uso_ia.md). Pedir a otra persona que ejecute el notebook desde una sesión nueva (R1). Correr `/revisar-entrega E1`.
+La integración (elegir los hallazgos, redactar y exportar el diagnóstico, armar `E1_diagnostico.ipynb`, unir las fichas y armar el entregable) ahora es la [T5](T5_consolidacion.md). La T1 entrega sus partes A–C y los límites de interpretación (§6 de `diagnostico.md`). En la consolidación, T5 puede pedirle a T1 que ajuste esos textos.
 
 ## Terminado cuando
 
 - [ ] §1 y §2 de `diagnostico.md` escritos, con 2 audiencias y 3 preguntas medibles con su acción.
 - [ ] El inventario distingue filas físicas, entidades y exposición, con hash y procedencia.
 - [ ] `diccionario_revisado.csv` tiene todas las filas y las columnas nuevas, con contratos verificables.
-- [ ] `Diagnostico.pdf` de 5 páginas o menos; `E1_diagnostico.ipynb` corre desde una sesión nueva; fichas unidas.
+- [ ] §6 de `diagnostico.md` con al menos 2 límites de interpretación.
+- [ ] Pendientes de T1 en la tabla del README cerrados (10.160 sector-horas; `minutos_interrupcion` discreta).
 
 ## No hacer
 

@@ -82,7 +82,13 @@ Cada entrega vive en `04_Aguas_Andinas_alumnos/E<n>/`. La E1 está organizada as
   - `PALETA` y `NOTA_FUENTE` para los gráficos.
   - Los notebooks van en `E1/` para que `import comun` funcione directo.
 - T1 integra el notebook entregable en `E1/E1_diagnostico.ipynb`. `E1/diagnostico.md` se exporta a `E1/Diagnostico.pdf` (máx. 5 páginas). `E1/uso_ia.md` es la declaración de IA y se actualiza cada vez que se usa IA.
-- **Dependencias entre tareas y cierre:** la sección "Pendientes y consolidación" de `E1/README.md` lista lo que espera resultados de otra tarea (por ejemplo, el ranking P4 de T2 espera `T3_por_sector.csv` y `T4_por_sector.csv`) y los pasos de la tarea de consolidación. Hay que revisarla antes de dar una tarea por terminada y actualizar su "Estado".
+- **Dependencias entre tareas y cierre:** la sección "Pendientes y consolidación" de `E1/README.md` lista lo que espera resultados de otra tarea (por ejemplo, el ranking P4 de T2 espera `T3_por_sector.csv` y `T4_por_sector.csv`) Hay que revisarla antes de dar una tarea por terminada y actualizar su "Estado".
+- **T5, consolidación (Byron, D-04):** `E1/tareas/T5_consolidacion.md` cierra los pendientes, corre el ranking real, une las fichas, arma el diagnóstico y el notebook final, y empaqueta. El script `E1/T5_consolidar.py` se corre desde `E1/`:
+  - sin flags, muestra el estado ✅/❌ de insumos y productos;
+  - `--unir-fichas`, `--ranking`, `--versiones`: preparan productos;
+  - `--empaquetar`: arma `E1/entregable/` + .zip, ignorado por git; solo funciona si todo está ✅, salvo con `--forzar`;
+  - `--probar`: ejecuta el notebook desde el .zip descomprimido;
+  - `--notebook X.ipynb`: elige el notebook a revisar o empaquetar.
 - `E1/decisiones.md`: registro, en el que solo se agregan entradas, de las decisiones que no definía el Word (D-01 atraso de carga = 2 h, D-02 la confiabilidad define el tipo de inspección, D-03 el ranking espera a T3 y T4). Cada decisión nueva o ambigüedad resuelta se agrega ahí.
 
 Skills del proyecto, reutilizables en E1–E4. Se invocan con `/nombre` en Claude Code y con `$nombre` en Codex, que también las activa solo según su descripción:
