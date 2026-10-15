@@ -68,3 +68,33 @@ Aquí se anotan las decisiones del grupo que **no estaban definidas** en el Word
 - **Decisión:** (b). La T5 la lleva Byron e incluye: cerrar los pendientes de T1–T4, ranking real, cruce de cifras entre tareas, unión de fichas, diagnóstico y PDF, notebook final, versiones probadas y carpeta entregable. La T1 queda con sus partes A–C y los límites (§6). Se agrega el script `T5_consolidar.py`, que revisa qué falta y arma y prueba el .zip.
 - **Consecuencias:** como Byron integra, la prueba R1 (ejecutar el notebook desde una sesión nueva) la hace otra persona del grupo.
 - **Dónde se aplica:** `tareas/T5_consolidacion.md`, `tareas/T1_pregunta_diccionario.md`, `README.md` (división, productos, cronograma y consolidación).
+
+## D-05: Período y calendario de la T3
+
+- **Fecha / quién:** 2026-10-14 · integrante de T3, según el plan aprobado en esta sesión, con asistencia de Codex.
+- **Qué era ambiguo:** período definitivo del resumen del ranking y límites de las semanas.
+- **Alternativas:** resumen anual o ago–dic; semanas separadas por lote o calendario continuo.
+- **Decisión:** explorar los tres lotes durante 2025; `T3_por_sector.csv` resume ago–dic, compatible con T2 y con la disponibilidad de tarifas de T4. Semanas de lunes 00:00 a lunes 00:00 UTC, con fin exclusivo; las semanas de los extremos se recortan a 2025. Se agregan horas directamente aunque una semana cruce lote, mes o vigencia.
+- **Evidencia:** calendario anual 262.800 sector-horas; ampliación 110.160 (3.672 por sector). La tabla de T2 usa ago–dic.
+- **Consecuencias:** no promediar porcentajes semanales para producir indicadores del período; usar las exposiciones originales.
+- **Dónde se aplica:** `T3_cobertura.py`, notebook T3 y tablas de cobertura/continuidad.
+
+## D-06: Recepción de lectura e interrupción conocida son estados diferentes
+
+- **Fecha / quién:** 2026-10-14 · integrante de T3, según el plan aprobado en esta sesión, con asistencia de Codex.
+- **Qué era ambiguo:** tratamiento de una lectura recibida con interrupción nula, no numérica o fuera de 0–60.
+- **Alternativas:** eliminar toda la lectura de cobertura, recortar minutos a 60 o considerar solo su interrupción como desconocida.
+- **Decisión:** reutilizar `T2_reglas.lecturas_validas` para cobertura; conservar la recepción de esas filas y tratar la interrupción inválida como desconocida. No recortar ni imputar. El calendario completo recibe exactamente una vigencia histórica, aun en horas ausentes. O usa solo interrupciones conocidas; U = E − O incluye horas ausentes e interrupciones inválidas.
+- **Evidencia:** 350 lecturas válidas para cobertura tienen interrupción inválida, todas en ampliación. Así, hay 99.500 lecturas válidas y 99.150 horas con interrupción conocida en ago–dic.
+- **Consecuencias:** la continuidad observada tiene un denominador distinto de cobertura. Si O = 0, observada nula y límites 0–100%. Máximo < meta significa bajo la meta; mínimo ≥ meta significa cumplimiento asegurado; el resto es incierto. La meta 99,5% se obtiene de la tabla anual, no de una norma real.
+- **Dónde se aplica:** `incorporar_exposiciones`, `resumir_continuidad`, CSV semanales y resumen del ranking.
+
+## D-07: Ausencia visible en figuras agregadas por día
+
+- **Fecha / quién:** 2026-10-14 · integrante de T3, según el plan aprobado en esta sesión, con asistencia de Codex.
+- **Qué era ambiguo:** un sector-día puede contener algunas lecturas y algunas horas desconocidas.
+- **Alternativas:** ocultar el faltante al mostrar solo la media conocida, o acompañar la media con cobertura y marcas de información parcial.
+- **Decisión:** mapa de calor doble: cobertura de lecturas e interrupción media conocida. Gris significa celda sin información; puntos rojos indican horas sin lectura en el primer panel y exposición de interrupción desconocida en el segundo. Se exportan ambos denominadores diarios. El gráfico presión–interrupción usa las mismas horas válidas para ambas variables, sin nuevo umbral de presión baja.
+- **Evidencia:** 3.941 de 4.590 sector-días tienen recepción parcial y ninguno carece de lecturas todo el día. Una media diaria por sí sola ocultaría esas ausencias.
+- **Consecuencias:** no interpretar días con algún par válido como días completos; las correlaciones diarias son descriptivas y no causales.
+- **Dónde se aplica:** `generar_figuras`, `T3_resumen_sector_dia.csv` e interpretaciones del notebook.

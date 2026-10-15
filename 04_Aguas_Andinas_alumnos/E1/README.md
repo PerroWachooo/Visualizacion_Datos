@@ -167,8 +167,8 @@ Hay trabajo que **no se puede cerrar dentro de una sola tarea**, porque necesita
 
 | Pendiente | Depende de | Dueño | Estado |
 |---|---|---|---|
-| Ranking real de las 3 inspecciones (P4), con y sin filtro de cobertura | `T3_por_sector.csv` y `T4_por_sector.csv` | T2 (Byron) | Bloqueado: el código está listo y probado con datos de prueba ([D-03](decisiones.md)) |
-| Valor oficial de KRI-01 (cobertura) y cruce de RQ-COM-02 con la cobertura de T3 (misma definición de "lectura válida") | Cobertura de T3 | T2 + T3 | Pendiente |
+| Ranking real de las 3 inspecciones (P4), con y sin filtro de cobertura | `T3_por_sector.csv` y `T4_por_sector.csv` | T2 (Byron) | Pendiente de T4: `T3_por_sector.csv` publicado; el código espera los resultados oficiales de T4 ([D-03](decisiones.md)) |
+| Valor oficial de KRI-01 (cobertura) y cruce de RQ-COM-02 con la cobertura de T3 (misma definición de "lectura válida") | Cobertura de T3 | T2 + T3 | Verificado en T3: 129.929 / 130.320, 22.253 / 22.320 y 99.500 / 110.160, usando la máscara de T2 |
 | Corregir "10.000" → **10.160** sector-horas sin recepción en ago–dic (110.160 − 100.000) en `T1_inventario.ipynb` / `T1_preparar.py`; `minutos_interrupcion` es cuantitativa **discreta** (todos sus valores son enteros) | — | T1 (José) | Pendiente |
 | Unir `T4_fichas_kpi.csv` + `T2_fichas_calidad.csv` → `fichas_indicadores.csv` | T2 y T4 | T5 | Pendiente |
 | Elegir los hallazgos finales del diagnóstico | T1–T4 | Todos (checkpoint) | Pendiente |
