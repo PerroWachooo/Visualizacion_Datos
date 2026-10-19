@@ -54,7 +54,7 @@ Se evaluaron 27 reglas por lote (`matriz_reglas.csv`) y un perfil por lote, sect
 | Interrupción fuera de 0–60 min | 350 de 253.404 (0,14%) |
 | Atraso de carga > 2 h | 34.016 de 253.051 (13,4%) |
 
-**Sesgo de faltantes:** las horas sin lectura se concentran en A-S26 a A-S29, con 76% de cobertura. Por eso su continuidad solo se acota entre ≈ 72,5% (si las horas faltantes tuvieron 60 min de corte) y ≈ 97,6% (si tuvieron 0). Un promedio sobre lo disponible ocultaría esas horas.
+**Sesgo de faltantes:** las horas sin lectura se concentran en A-S26 a A-S29, con 76% de cobertura (11.183 de 14.688 sector-horas). Por eso su continuidad solo se acota entre ≈ 72,5% (si las horas faltantes tuvieron 60 min de corte) y ≈ 97,6% (si tuvieron 0). Un promedio sobre lo disponible ocultaría esas horas.
 
 **KPI más sensibles a un mal tratamiento** (ene–dic):
 - Sumar litros como m³ hunde la intensidad energética en un 99,4% (0,265 → 0,0015 kWh/m³).
