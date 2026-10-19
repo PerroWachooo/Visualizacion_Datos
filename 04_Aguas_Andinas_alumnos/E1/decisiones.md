@@ -98,3 +98,23 @@ Aquí se anotan las decisiones del grupo que **no estaban definidas** en el Word
 - **Evidencia:** 3.941 de 4.590 sector-días tienen recepción parcial y ninguno carece de lecturas todo el día. Una media diaria por sí sola ocultaría esas ausencias.
 - **Consecuencias:** no interpretar días con algún par válido como días completos; las correlaciones diarias son descriptivas y no causales.
 - **Dónde se aplica:** `generar_figuras`, `T3_resumen_sector_dia.csv` e interpretaciones del notebook.
+
+## D-08: Umbral de presión baja (KPI-06) y sensibilidad
+
+- **Fecha / quién:** 2026-10-17 · T4 (Benjamín, pendiente de confirmar nombre), con asistencia de OpenCode.
+- **Qué era ambiguo:** el Word pide "horas con presión baja" como señal operacional, pero no define el umbral. Los datos no traen una norma de presión mínima.
+- **Alternativas:** usar un percentil (p. ej. P5 de la distribución propia), o un umbral fijo docente. Un percentil oculta si la red entera baja de presión.
+- **Decisión:** umbral fijo de 3,0 bar, marcado como supuesto docente a validar con el profesor. Se informan sensibilidades de 2,5 y 3,5 bar.
+- **Evidencia:** en ago–dic, 2,2% de horas bajo 3,0 bar; 0,7% con 2,5 bar y 18,8% con 3,5 bar. El resultado cambia de orden de magnitud con el umbral.
+- **Consecuencias:** KPI-06 no se compara entre períodos ni con otras entregas sin fijar el umbral. Es una señal operacional, nunca criterio sanitario.
+- **Dónde se aplica:** T4_eda.PRESION_BAJA_BAR, T4_fichas_kpi.csv (KPI-06), figuras (c) y (a) del notebook.
+
+## D-09: Costo por m³ como razón de sumas y descomposición con identidad
+
+- **Fecha / quién:** 2026-10-17 · T4 (Benjamín, pendiente de confirmar nombre), con asistencia de OpenCode.
+- **Qué era ambiguo:** el Word pide presentar la razón de sumas frente al promedio de razones, sin fijar cuál es el KPI.
+- **Alternativas:** promedio de razones horarias (cada hora pesa igual, aunque tenga poco volumen), o razón de sumas (Σ costo / Σ m³).
+- **Decisión:** KPI-04 = Σ costo / Σ m³ (razón de sumas). El promedio de razones se informa como comparación. La variación entre meses se descompone en energía por m³ y tarifa, con la identidad costo/m³ = (kWh/m³) × (CLP/kWh) y sin residuo.
+- **Evidencia:** 37,61 frente a 38,28 CLP/m³ (+1,8%). Del cambio de agosto a diciembre, 96% es tarifa.
+- **Consecuencias:** el KPI no depende del número de horas con poco volumen. La tarifa explica casi todo el alza; no se atribuye a la operación de la red.
+- **Dónde se aplica:** T4_eda.costo_m3, T4_costo_m3.csv, KPI-04 y figura de costo.
