@@ -1,6 +1,6 @@
 # Diagnóstico y necesidades: Aguas Andinas, continuidad y eficiencia operacional
 
-**E1 · Grupo Aguas Andinas:** Byron, Bastian, Sepu, Jose · Visualización de Datos 2026 S2 · Prof. Viktor Tapia
+**E1 · Grupo Aguas Andinas:** Byron Caices, Bastián Brito, Benjamín Sepúlveda, José Marin · Visualización de Datos 2026 S2 · Prof. Viktor Tapia
 
 *Datos y metas 100% simulados con fines docentes; no representan instalaciones ni resultados reales de la empresa. Fechas en UTC.*
 

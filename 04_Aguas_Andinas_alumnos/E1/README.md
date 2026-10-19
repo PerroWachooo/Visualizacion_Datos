@@ -1,6 +1,6 @@
 # E1 Diagnóstico y necesidades: qué hay que hacer y cómo nos dividimos
 
-**Grupo Aguas Andinas:** Byron, Bastian, Sepu, Jose
+**Grupo Aguas Andinas:** Byron Caices, Bastián Brito (Basti), Benjamín Sepúlveda (Sepu), José Marin
 **Peso:** 10%, en equipo, semana 4
 **Fecha de entrega:** `____/____/2026` (completar cuando se publique en el aula virtual)
 
@@ -183,6 +183,62 @@ La consolidación es la **T5** (responsable: Byron, [D-04](decisiones.md)). Sus 
 
 ```bash
 cd 04_Aguas_Andinas_alumnos/E1 && ../.venv/bin/python T5_consolidar.py
+```
+
+## Revisión final (T5, 2026-10-19)
+
+Revisión de la entrega completa contra el Word, hecha con `/revisar-entrega E1` y `T5_consolidar.py`. **Antes de cambiar cualquier producto, leer esta sección**: si cambias algo, vuelve a correr las verificaciones del final.
+
+**Estado:** `T5_consolidar.py` da **15 de 15 listos**. Sin ❌ en la checklist W/P/S/R.
+- `E1_diagnostico.ipynb`: 29 celdas, 0 errores, ejecutado desde cero. Su última celda verifica que las cifras compartidas entre tareas cuadren.
+- `Diagnostico.pdf`: 4 de 5 páginas.
+- Los datos originales están intactos (hashes OK).
+- El .zip pasa `--probar`: el notebook corre completo desde una carpeta nueva.
+
+**Puntaje estimado con la rúbrica** (estimación para priorizar, no una nota): cerca de 96 de 100.
+
+| Criterio | Estimado | Fundamento |
+|---|---|---|
+| Audiencia y preguntas | 25 de 25 | Dos audiencias y 3 preguntas medibles con su acción |
+| EDA y granularidad | 30 de 30 | Seis análisis (incluido el temporal y por segmento); cero, nulo y ausente diferenciados |
+| Calidad y pertinencia | 30 de 30 | Seis métricas de calidad, sesgo de faltantes y reglas con impacto en los KPI |
+| Reproducibilidad y claridad | ≈ 11 de 15 | Faltan R1 y la corrección del diccionario (ver pendientes) |
+
+**Correcciones hechas en la revisión de T3/T4** (commit `2e2f51f`):
+- T3 no necesitó cambios.
+- T4:
+  - `tipo_KPI_KRI_visual` = "KPI" en las fichas (bloqueaba la unión);
+  - se volvió a ejecutar el notebook, que tenía guardado un error de caída del kernel;
+  - se separaron los denominadores de KPI-05 y KPI-06;
+  - se corrigieron el título de presión de la figura (a) y una frase de H1.
+
+**Resultado que va al diagnóstico** (lo eligió Byron):
+- **4 hallazgos:**
+  - grupo A-S20 a A-S29;
+  - continuidad bajo la meta;
+  - ago–dic, el lote menos confiable;
+  - costo y unidades.
+- **3 inspecciones:** **A-S20** y **A-S25** (sensor primero) y **A-S10** (operación).
+- **Filtro de cobertura:** 80%. El resultado es el mismo con 80, 85 y 90%.
+
+**Pendientes antes de subir:** están en la tabla "Pendientes entre tareas", más arriba:
+- **R1:** otra persona ejecuta el notebook;
+- **José:** marcar `minutos_interrupcion` como discreta en `diccionario_revisado.csv`;
+- **Byron:** confirmar con el profe el formato y la fecha.
+
+**Si cambias algún producto**, vuelve a correr, desde `E1/`:
+```bash
+../.venv/bin/python T5_consolidar.py --pdf          # si cambió diagnostico.md
+../.venv/bin/jupyter nbconvert --to notebook --execute --inplace E1_diagnostico.ipynb   # si cambió un módulo o una tabla
+../.venv/bin/python T5_consolidar.py                # debe seguir en 15 de 15
+../.venv/bin/python T5_consolidar.py --empaquetar && ../.venv/bin/python T5_consolidar.py --probar
+```
+Los cambios a mano dentro de `entregable/` se pierden al volver a empaquetar. Hay que hacerlos en el archivo de origen: la plantilla del `LEEME.md` está en `T5_consolidar.py`.
+
+**Evidencia para `trazabilidad_curso.csv`** (si el profe la pide):
+```
+RA1,IL1.1,E1 → Diagnostico.pdf §1–2; E1_diagnostico.ipynb §2–3; E1/salidas/tablas/diccionario_revisado.csv
+RA1,IL1.2,E1 → Diagnostico.pdf §3–5; E1_diagnostico.ipynb §4–9; E1/salidas/tablas/perfil_calidad.csv y matriz_reglas.csv
 ```
 
 ## Skills (Claude Code y Codex)

@@ -73,7 +73,11 @@ Los PDF de la raíz se pueden leer sin poppler con PDFKit: `osascript -l JavaScr
 
 ## Trabajo del grupo (4 integrantes: Byron, Bastian, Sepu, Jose)
 
-Responsables de la E1: T1 José, T2 Byron, T3 Bastian (Bastian Brito), T4 Sepu (Benjamín Sepúlveda), T5 Byron.
+Nombres completos (usar estos en los entregables): Byron Caices, Bastián Brito (Basti), Benjamín Sepúlveda (Sepu), José Marin.
+
+Responsables de la E1: T1 José, T2 Byron, T3 Bastián, T4 Sepu, T5 Byron.
+
+**Estado de la E1: consolidada y revisada.** Antes de tocar un producto de la E1, leer la sección **"Revisión final" de `E1/README.md`**. Ahí están el estado (15 de 15 en `T5_consolidar.py`), las correcciones hechas a T3/T4, el resultado elegido (4 hallazgos; inspecciones A-S20, A-S25 y A-S10; filtro de cobertura 80%), los pendientes (R1, diccionario de T1, formato de entrega) y los comandos para volver a verificar si algo cambia. Lo que se edite a mano dentro de `E1/entregable/` se pierde al volver a empaquetar; los cambios van en el archivo de origen.
 
 Cada entrega vive en `04_Aguas_Andinas_alumnos/E<n>/`. La E1 está organizada así:
 - `E1/README.md`: lo que pide el Word organizado en una checklist (códigos W, P, S, R), tabla de productos con su dueño, rúbrica, tareas T1–T4, **contrato de tablas por sector** (`T<n>_por_sector.csv`, para que el ranking de inspección no espere a nadie), cronograma relativo, convenciones y el formato de hallazgo (observación, hipótesis, decisión).

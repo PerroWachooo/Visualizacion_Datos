@@ -240,7 +240,7 @@ def _modulos_locales(notebook):
 
 LEEME = """# Entrega E1 · Diagnóstico y necesidades · Grupo Aguas Andinas
 
-Integrantes: Byron, Bastian, Sepu, Jose · Visualización de Datos 2026 S2 · Prof. Viktor Tapia
+Integrantes: Byron Caices, Bastián Brito, Benjamín Sepúlveda, José Marin · Visualización de Datos 2026 S2 · Prof. Viktor Tapia
 Datos 100% simulados con fines docentes.
 
 ## Contenido
