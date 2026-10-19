@@ -6,6 +6,7 @@ Uso (desde E1/, con el venv del caso):
     python T5_consolidar.py --unir-fichas    # T4_fichas_kpi.csv + T2_fichas_calidad.csv -> fichas_indicadores.csv
     python T5_consolidar.py --ranking        # T2/T3/T4_por_sector.csv -> T2_ranking.csv (con y sin filtro)
     python T5_consolidar.py --versiones      # versiones_probadas.txt (Python + pip freeze)
+    python T5_consolidar.py --pdf            # diagnostico.md -> Diagnostico.pdf (Chrome sin ventana) y control de páginas
     python T5_consolidar.py --empaquetar     # carpeta entregable/ + .zip (solo si todo está ✅; --forzar para probar)
     python T5_consolidar.py --probar         # descomprime el .zip en una carpeta temporal y ejecuta el notebook ahí
 
@@ -189,6 +190,39 @@ def versiones():
     print(f"versiones_probadas.txt: Python {sys.version.split()[0]}, {len(freeze.splitlines())} paquetes.")
 
 
+CHROME = Path("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
+CSS_PDF = """
+@page { size: A4; margin: 1.4cm 1.5cm; }
+html, body { background: #ffffff; }
+body { font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; font-size: 9.2pt; line-height: 1.32; color: #1a1a1a; }
+h1 { font-size: 15pt; margin: 0 0 4px; } h2 { font-size: 11.5pt; margin: 12px 0 4px; border-bottom: 1px solid #ccc; }
+h3 { font-size: 10pt; margin: 9px 0 3px; } p, ul { margin: 3px 0; } li { margin: 1px 0; }
+table { border-collapse: collapse; width: 100%; margin: 4px 0; font-size: 8.2pt; page-break-inside: avoid; }
+th, td { border: 1px solid #ccc; padding: 2px 4px; vertical-align: top; text-align: left; } th { background: #f2f2f2; }
+code { font-size: 8pt; background: #f4f4f4; padding: 0 2px; }
+"""
+
+
+def pdf():
+    """diagnostico.md -> Diagnostico.pdf (mistune + Chrome sin ventana) y control de páginas."""
+    import mistune
+    if not CHROME.exists():
+        sys.exit("No se encontró Google Chrome; exportar diagnostico.md a PDF con otro editor.")
+    texto = (E1 / "diagnostico.md").read_text(encoding="utf-8")
+    texto = re.sub(r"<!--.*?-->", "", texto, flags=re.S)
+    cuerpo = mistune.create_markdown(plugins=["table"])(texto)
+    html = f'<!doctype html><html lang="es"><head><meta charset="utf-8"><style>{CSS_PDF}</style></head><body>{cuerpo}</body></html>'
+    with tempfile.TemporaryDirectory() as tmp:
+        ruta_html = Path(tmp) / "diagnostico.html"
+        ruta_html.write_text(html, encoding="utf-8")
+        salida = E1 / "Diagnostico.pdf"
+        subprocess.run([str(CHROME), "--headless", "--disable-gpu", "--no-pdf-header-footer",
+                        f"--print-to-pdf={salida}", ruta_html.as_uri()], check=True, capture_output=True)
+    paginas = _paginas_pdf(salida)
+    estado = OK if paginas <= MAX_PAGINAS else FALTA
+    print(f"{estado} Diagnostico.pdf: {paginas} páginas (máx. {MAX_PAGINAS}).")
+
+
 def _modulos_locales(notebook):
     """Módulos .py de E1/ que importa el notebook, y los que importan esos módulos."""
     nb = json.loads((E1 / notebook).read_text(encoding="utf-8"))
@@ -277,6 +311,7 @@ def main():
     p.add_argument("--unir-fichas", action="store_true")
     p.add_argument("--ranking", action="store_true")
     p.add_argument("--versiones", action="store_true")
+    p.add_argument("--pdf", action="store_true")
     p.add_argument("--empaquetar", action="store_true")
     p.add_argument("--forzar", action="store_true", help="empaquetar aunque falten elementos (solo para pruebas)")
     p.add_argument("--probar", action="store_true")
@@ -287,11 +322,13 @@ def main():
         ranking()
     if a.versiones:
         versiones()
+    if a.pdf:
+        pdf()
     if a.empaquetar:
         empaquetar(a.notebook, a.forzar)
     if a.probar:
         probar(a.notebook)
-    if not any([a.unir_fichas, a.ranking, a.versiones, a.empaquetar, a.probar]):
+    if not any([a.unir_fichas, a.ranking, a.versiones, a.pdf, a.empaquetar, a.probar]):
         imprimir(revisar(a.notebook))
 
 

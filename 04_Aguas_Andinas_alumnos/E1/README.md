@@ -172,7 +172,7 @@ Hay trabajo que **no se puede cerrar dentro de una sola tarea**, porque necesita
 | Corregir "10.000" → **10.160** sector-horas sin recepción en ago–dic (110.160 − 100.000) en `T1_inventario.ipynb` / `T1_preparar.py`; `minutos_interrupcion` es cuantitativa **discreta** (todos sus valores son enteros) | — | T1 (José) | Pendiente en los archivos de T1; T5 lo corrige en el notebook final y le avisa a José |
 | Unir `T4_fichas_kpi.csv` + `T2_fichas_calidad.csv` → `fichas_indicadores.csv` | T2 y T4 | T5 | Listo para unir: `T4_fichas_kpi.csv` corregido en la revisión (`tipo_KPI_KRI_visual` = KPI) |
 | Publicar `T4_por_sector.csv` (contrato, D-7) | — | T4 | Hecho y revisado (30 filas, ago–dic) |
-| Elegir los hallazgos finales del diagnóstico | T1–T4 | Todos (checkpoint) | Pendiente |
+| Elegir los hallazgos finales del diagnóstico | T1–T4 | Todos (checkpoint) | Hecho: 4 hallazgos y 3 inspecciones (A-S20, A-S25, A-S10; filtro 80%) elegidos por Byron en T5 |
 
 ### Tarea de consolidación → [T5](tareas/T5_consolidacion.md)
 
