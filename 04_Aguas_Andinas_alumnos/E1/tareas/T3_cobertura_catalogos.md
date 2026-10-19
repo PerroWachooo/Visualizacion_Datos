@@ -1,6 +1,6 @@
 # T3: Cobertura, continuidad y catálogos
 
-**Responsable:** ____________
+**Responsable:** Bastian (Bastian Brito)
 **Ítems del Word:** W4f (faltantes por segmento), P1, P3, S3 · **Rúbrica:** "EDA y granularidad" (30 pts) y el sesgo de faltantes de "Calidad y pertinencia"
 **Notebook de trabajo:** `E1/T3_cobertura.ipynb`
 **Módulo reutilizable:** `E1/T3_cobertura.py` · **Estado:** implementada y ejecutada desde un kernel nuevo.

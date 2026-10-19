@@ -73,6 +73,8 @@ Los PDF de la raíz se pueden leer sin poppler con PDFKit: `osascript -l JavaScr
 
 ## Trabajo del grupo (4 integrantes: Byron, Bastian, Sepu, Jose)
 
+Responsables de la E1: T1 José, T2 Byron, T3 Bastian (Bastian Brito), T4 Sepu (Benjamín Sepúlveda), T5 Byron.
+
 Cada entrega vive en `04_Aguas_Andinas_alumnos/E<n>/`. La E1 está organizada así:
 - `E1/README.md`: lo que pide el Word organizado en una checklist (códigos W, P, S, R), tabla de productos con su dueño, rúbrica, tareas T1–T4, **contrato de tablas por sector** (`T<n>_por_sector.csv`, para que el ranking de inspección no espere a nadie), cronograma relativo, convenciones y el formato de hallazgo (observación, hipótesis, decisión).
 - `E1/tareas/T<n>_*.md`: una tarea por persona, diseñadas para no bloquearse entre sí. Cada una escribe solo en sus propios archivos (`E1/T<n>_*.ipynb`, `E1/salidas/{figuras,tablas}/T<n>_*`). Los productos del Word usan el nombre exacto y tienen un solo dueño.
@@ -81,7 +83,7 @@ Cada entrega vive en `04_Aguas_Andinas_alumnos/E<n>/`. La E1 está organizada as
   - `parse_exploratorio()`: tipado sin borrar filas, columnas `volumen_*_m3`, columnas `*_raw` y flags `_…` por cada problema de formato.
   - `PALETA` y `NOTA_FUENTE` para los gráficos.
   - Los notebooks van en `E1/` para que `import comun` funcione directo.
-- T1 integra el notebook entregable en `E1/E1_diagnostico.ipynb`. `E1/diagnostico.md` se exporta a `E1/Diagnostico.pdf` (máx. 5 páginas). `E1/uso_ia.md` es la declaración de IA y se actualiza cada vez que se usa IA.
+- La T5 integra el notebook entregable en `E1/E1_diagnostico.ipynb`. `E1/diagnostico.md` se exporta a `E1/Diagnostico.pdf` (máx. 5 páginas). `E1/uso_ia.md` es la declaración de IA y se actualiza cada vez que se usa IA.
 - **Dependencias entre tareas y cierre:** la sección "Pendientes y consolidación" de `E1/README.md` lista lo que espera resultados de otra tarea (por ejemplo, el ranking P4 de T2 espera `T3_por_sector.csv` y `T4_por_sector.csv`) Hay que revisarla antes de dar una tarea por terminada y actualizar su "Estado".
 - **T5, consolidación (Byron, D-04):** `E1/tareas/T5_consolidacion.md` cierra los pendientes, corre el ranking real, une las fichas, arma el diagnóstico y el notebook final, y empaqueta. El script `E1/T5_consolidar.py` se corre desde `E1/`:
   - sin flags, muestra el estado ✅/❌ de insumos y productos;
@@ -89,7 +91,7 @@ Cada entrega vive en `04_Aguas_Andinas_alumnos/E<n>/`. La E1 está organizada as
   - `--empaquetar`: arma `E1/entregable/` + .zip, ignorado por git; solo funciona si todo está ✅, salvo con `--forzar`;
   - `--probar`: ejecuta el notebook desde el .zip descomprimido;
   - `--notebook X.ipynb`: elige el notebook a revisar o empaquetar.
-- `E1/decisiones.md`: registro, en el que solo se agregan entradas, de las decisiones que no definía el Word (D-01 atraso de carga = 2 h, D-02 la confiabilidad define el tipo de inspección, D-03 el ranking espera a T3 y T4). Cada decisión nueva o ambigüedad resuelta se agrega ahí.
+- `E1/decisiones.md`: registro, en el que solo se agregan entradas, de las decisiones que no definía el Word (D-01 atraso de carga = 2 h; D-02 la confiabilidad define el tipo de inspección; D-03 el ranking espera a T3 y T4; D-04 se crea la T5; D-05 a D-07 calendario y continuidad de T3; D-08 presión baja < 3,0 bar; D-09 costo por m3 como razón de sumas). Cada decisión nueva o ambigüedad resuelta se agrega ahí.
 
 Skills del proyecto, reutilizables en E1–E4. Se invocan con `/nombre` en Claude Code y con `$nombre` en Codex, que también las activa solo según su descripción:
 - `perfil-calidad`: `perfil_calidad.csv` y `matriz_reglas.csv` por lote y segmento, con denominadores y la clasificación defecto / extremo plausible / ausencia estructural.

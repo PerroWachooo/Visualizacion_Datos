@@ -81,8 +81,8 @@ Los códigos (W, P, S, R) siguen las secciones del Word.
 |---|---|---|---|
 | [T1](tareas/T1_pregunta_diccionario.md) | Necesidades, inventario, diccionario y contratos | W1, W2, W3, límites de W6 | José |
 | [T2](tareas/T2_calidad.md) | Calidad por lote y segmento, 6 métricas de calidad + código del **ranking de inspección** | W5, W6 (calidad), S1, S2, P4 | Byron |
-| [T3](tareas/T3_cobertura_catalogos.md) | Cobertura, continuidad con límites 0/60, heatmap, catálogos y vigencias | W4f, P1, P3, S3 | |
-| [T4](tareas/T4_eda_negocio.md) | EDA de negocio (5 análisis), costo por m3, 6 KPI | W4a–e, P2, W6 (KPI) | Benjamín (confirmar nombre) |
+| [T3](tareas/T3_cobertura_catalogos.md) | Cobertura, continuidad con límites 0/60, heatmap, catálogos y vigencias | W4f, P1, P3, S3 | Bastian |
+| [T4](tareas/T4_eda_negocio.md) | EDA de negocio (5 análisis), costo por m3, 6 KPI | W4a–e, P2, W6 (KPI) | Sepu |
 | [T5](tareas/T5_consolidacion.md) | **Consolidación:** pendientes de T1–T4, ranking real, notebook final, PDF, fichas unidas y carpeta entregable ([T5_consolidar.py](T5_consolidar.py)) | 4 productos, R1–R4, P4 (ranking real) | Byron |
 
 ### Contrato de tablas por sector (para que el ranking no espere a nadie)
@@ -167,11 +167,11 @@ Hay trabajo que **no se puede cerrar dentro de una sola tarea**, porque necesita
 
 | Pendiente | Depende de | Dueño | Estado |
 |---|---|---|---|
-| Ranking real de las 3 inspecciones (P4), con y sin filtro de cobertura | `T3_por_sector.csv` y `T4_por_sector.csv` | T2 (Byron) | Pendiente de T4: `T3_por_sector.csv` publicado; el código espera los resultados oficiales de T4 ([D-03](decisiones.md)) |
+| Ranking real de las 3 inspecciones (P4), con y sin filtro de cobertura | `T3_por_sector.csv` y `T4_por_sector.csv` | T5 (Byron) | **Desbloqueado:** `T3_por_sector.csv` y `T4_por_sector.csv` publicados y revisados; se corre con `T5_consolidar.py --ranking` ([D-03](decisiones.md)) |
 | Valor oficial de KRI-01 (cobertura) y cruce de RQ-COM-02 con la cobertura de T3 (misma definición de "lectura válida") | Cobertura de T3 | T2 + T3 | Verificado en T3: 129.929 / 130.320, 22.253 / 22.320 y 99.500 / 110.160, usando la máscara de T2 |
-| Corregir "10.000" → **10.160** sector-horas sin recepción en ago–dic (110.160 − 100.000) en `T1_inventario.ipynb` / `T1_preparar.py`; `minutos_interrupcion` es cuantitativa **discreta** (todos sus valores son enteros) | — | T1 (José) | Pendiente |
-| Unir `T4_fichas_kpi.csv` + `T2_fichas_calidad.csv` → `fichas_indicadores.csv` | T2 y T4 | T5 | Pendiente: `T4_fichas_kpi.csv` ya existe (6 KPI); falta la unión |
-| Publicar `T4_por_sector.csv` (contrato, D-7) | — | T4 | Hecho (versión preliminar, 30 filas, ago–dic); ranking pendiente de T3 y de la revisión de H1 |
+| Corregir "10.000" → **10.160** sector-horas sin recepción en ago–dic (110.160 − 100.000) en `T1_inventario.ipynb` / `T1_preparar.py`; `minutos_interrupcion` es cuantitativa **discreta** (todos sus valores son enteros) | — | T1 (José) | Pendiente en los archivos de T1; T5 lo corrige en el notebook final y le avisa a José |
+| Unir `T4_fichas_kpi.csv` + `T2_fichas_calidad.csv` → `fichas_indicadores.csv` | T2 y T4 | T5 | Listo para unir: `T4_fichas_kpi.csv` corregido en la revisión (`tipo_KPI_KRI_visual` = KPI) |
+| Publicar `T4_por_sector.csv` (contrato, D-7) | — | T4 | Hecho y revisado (30 filas, ago–dic) |
 | Elegir los hallazgos finales del diagnóstico | T1–T4 | Todos (checkpoint) | Pendiente |
 
 ### Tarea de consolidación → [T5](tareas/T5_consolidacion.md)

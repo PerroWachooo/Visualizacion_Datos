@@ -1,6 +1,6 @@
 # T4: EDA de negocio, costo por m3 y KPI
 
-**Responsable:** Benjamín (confirmar nombre: no figura en el README)
+**Responsable:** Sepu (Benjamín Sepúlveda)
 **Ítems del Word:** W4a–e (5 de los 6 análisis), P2, W6 (6 KPI) · **Rúbrica:** "EDA y granularidad" (30 pts)
 **Notebook de trabajo:** `E1/T4_eda_negocio.ipynb`
 **Productos:** `salidas/tablas/T4_costo_m3.csv`, `salidas/tablas/T4_fichas_kpi.csv`, `salidas/tablas/T4_por_sector.csv`, figuras
@@ -87,7 +87,7 @@ Con `/ficha-indicador`. Propuesta inicial, que se cierra en el checkpoint:
 - Observación: ago–dic, 29.002 lecturas con volumen válido en el grupo (24,0%) y 67.048 en los otros 20 sectores (15,0%). El grupo sube de 13,0% (ene–mar) a 21,0% (abril) y 24,0% (agosto); el resto sube de 13,0% a 15,0% solo en agosto. En abril el grupo baja su kWh/m³ de 0,266 a 0,243 y sube sus horas con interrupción de ~3% a ~6%.
 - Gráfico o tabla: `salidas/figuras/T4_d_segmentos.png`, `salidas/tablas/T4_por_sector.csv`
 - Período · unidad · población: ago–dic 2025 UTC (ranking) y ene–dic para la serie · % de m³ · lecturas con volumen válido de 30 sectores
-- Hipótesis: cambio de medición en entrada o salida de esos sectores, o pérdida real con menor bombeo. No se pueden separar con estos datos. La unidad no lo explica: dentro de cada unidad (L o m³) el grupo sigue en ~20–22%.
+- Hipótesis: cambio de medición en entrada o salida de esos sectores, o pérdida real con menor bombeo. No se pueden separar con estos datos. La unidad no lo explica: en ago–dic el grupo queda en 24% y el resto en 15%, tanto en las lecturas en m³ como en las lecturas en L.
 - Decisión o acción: marcar los 10 sectores como candidatos a inspección de medición (contraste de medidores de entrada y salida) y de operación (bombas y válvulas), con la evidencia separada.
 - Limitación: no se atribuye fuga ni se descarta un error de sensor. El grupo se identificó a partir de los datos.
 - Dimensión: volúmenes · confiabilidad de medición

@@ -252,7 +252,8 @@ def kpi_valores(df, ctx):
         "KPI-06 sensibilidad 2,5 bar (%)": 100 * (a["presion_bar"] < 2.5).mean(),
         "KPI-06 sensibilidad 3,5 bar (%)": 100 * (a["presion_bar"] < 3.5).mean(),
         "denominador KPI-02/03/04 (lecturas con volumen válido)": len(vol),
-        "denominador KPI-05/06 (horas observadas válidas, ago–dic)": len(mi),
+        "denominador KPI-05 (horas válidas con minutos en 0–60, ago–dic)": len(mi),
+        "denominador KPI-06 (lecturas válidas, ago–dic)": len(a),
         "horas observadas T3 (ago–dic)": horas_obs,
     }
 
@@ -274,8 +275,8 @@ def por_sector(df, ctx):
 
 
 FICHAS_KPI = [
-    {"id": "KPI-01", "tipo_KPI_KRI_visual": "KPI · barras con intervalo por sector (0/60 min)",
-     "objetivo": "Continuidad ponderada por conexiones del servicio, con horas desconocidas acotadas entre 0 y 60 min. Responde si un sector cumple la meta docente con lo observado.",
+    {"id": "KPI-01", "tipo_KPI_KRI_visual": "KPI",
+     "objetivo": "Continuidad ponderada por conexiones del servicio, con horas desconocidas acotadas entre 0 y 60 min. Responde si un sector cumple la meta docente con lo observado. Visual sugerida: barras con intervalo por sector (0/60 min).",
      "formula": "Observada = 100 × (1 − min. interrumpidos / min. de conexión observados); límite superior = 100 × (1 − interrumpidos / esperados) [horas ausentes = 0 min]; límite inferior = 100 × (1 − (interrumpidos + desconocidos) / esperados) [horas ausentes = 60 min]. Minutos ponderados por conexiones vigentes",
      "numerador": "Minutos de conexión interrumpidos (observados); para el límite inferior, más minutos de conexión de horas ausentes (60 min × conexiones)",
      "denominador": "Minutos de conexión esperados = Σ conexiones vigentes × 60 min por hora del calendario UTC (observada: minutos observados)",
@@ -285,10 +286,10 @@ FICHAS_KPI = [
      "periodo_corte": "ago–dic 2025 UTC (corte del lote ampliación: 2026-01-08)",
      "tratamiento_nulos": "Hora sin lectura = AUSENTE: no se imputa 0; se reporta como intervalo [0 min, 60 min]",
      "umbral": "99,5", "version_umbral": "v0-E1 (meta docente de metas_2025_ancho.csv)",
-     "responsable": "T4 (por confirmar) · cálculo oficial T3",
+     "responsable": "T4 (Sepu) · cálculo oficial T3 (Bastian)",
      "accion": "Si el límite superior queda bajo la meta, el sector se prioriza; si el intervalo cruza la meta, primero recolectar evidencia de transmisión."},
-    {"id": "KPI-02", "tipo_KPI_KRI_visual": "KPI · barras por sector ordenadas",
-     "objetivo": "Balance hídrico: cuánto del volumen de entrada no sale del sector. Responde dónde el balance es más desfavorable para revisar medición y fugas.",
+    {"id": "KPI-02", "tipo_KPI_KRI_visual": "KPI",
+     "objetivo": "Balance hídrico: cuánto del volumen de entrada no sale del sector. Responde dónde el balance es más desfavorable para revisar medición y fugas. Visual sugerida: barras por sector ordenadas.",
      "formula": "100 × Σ(entrada − salida) / Σ entrada (razón de sumas)",
      "numerador": "Σ (volumen_entrada_m3 − volumen_salida_m3) en lecturas con volumen válido",
      "denominador": "Σ volumen_entrada_m3 en las mismas lecturas",
@@ -298,10 +299,10 @@ FICHAS_KPI = [
      "periodo_corte": "ago–dic 2025 UTC (ranking); ene–dic 2025 como contexto",
      "tratamiento_nulos": "Volumen nulo, PENDIENTE o unidad 'unidad?' = NA: se excluye y se cuenta; nunca se adivina la unidad",
      "umbral": "sin meta docente", "version_umbral": "v0-E1",
-     "responsable": "T4 (por confirmar)",
+     "responsable": "T4 (Sepu)",
      "accion": "Sectores con mayor diferencia: revisar medición de entrada y salida antes de atribuir pérdidas a fugas."},
-    {"id": "KPI-03", "tipo_KPI_KRI_visual": "KPI · barras por sector y serie mensual",
-     "objetivo": "Energía por unidad de agua entregada. Responde qué sectores consumen más energía por m3.",
+    {"id": "KPI-03", "tipo_KPI_KRI_visual": "KPI",
+     "objetivo": "Energía por unidad de agua entregada. Responde qué sectores consumen más energía por m3. Visual sugerida: barras por sector y serie mensual.",
      "formula": "Σ energia_kwh / Σ volumen_entrada_m3",
      "numerador": "Σ energia_kwh en lecturas con volumen válido",
      "denominador": "Σ volumen_entrada_m3 en las mismas lecturas",
@@ -311,10 +312,10 @@ FICHAS_KPI = [
      "periodo_corte": "ago–dic 2025 UTC",
      "tratamiento_nulos": "Energía sin valor no ocurre en lecturas válidas; volumen NA excluye la lectura de numerador y denominador",
      "umbral": "sin meta docente", "version_umbral": "v0-E1",
-     "responsable": "T4 (por confirmar)",
+     "responsable": "T4 (Sepu)",
      "accion": "Sectores con kWh/m3 alto frente al resto: revisar bombeo y presión antes de atribuir ineficiencia."},
-    {"id": "KPI-04", "tipo_KPI_KRI_visual": "KPI · barras por sector y descomposición mensual",
-     "objetivo": "Costo de energía por m3 entregado. Responde qué sectores tienen mayor costo unitario de energía.",
+    {"id": "KPI-04", "tipo_KPI_KRI_visual": "KPI",
+     "objetivo": "Costo de energía por m3 entregado. Responde qué sectores tienen mayor costo unitario de energía. Visual sugerida: barras por sector y descomposición mensual.",
      "formula": "Σ (energia_kwh × tarifa_kwh_clp) / Σ volumen_entrada_m3 (razón de sumas)",
      "numerador": "Σ costo de energía por hora (kWh × tarifa del sector-mes)",
      "denominador": "Σ volumen_entrada_m3 en las mismas lecturas",
@@ -324,10 +325,10 @@ FICHAS_KPI = [
      "periodo_corte": "ago–dic 2025 UTC",
      "tratamiento_nulos": "Tarifa ausente antes de agosto = fuera de alcance (no es 0); sector-mes sin tarifa dentro de ago–dic no ocurre (se verifica con assert)",
      "umbral": "sin meta docente", "version_umbral": "v0-E1",
-     "responsable": "T4 (por confirmar)",
+     "responsable": "T4 (Sepu)",
      "accion": "Separar si el costo sube por energía (kWh/m3) o por tarifa (CLP/kWh) antes de proponer medidas."},
-    {"id": "KPI-05", "tipo_KPI_KRI_visual": "KPI · barra de proporción por sector",
-     "objetivo": "Frecuencia de horas con interrupción observada. Responde en qué sectores la interrupción aparece con mayor frecuencia.",
+    {"id": "KPI-05", "tipo_KPI_KRI_visual": "KPI",
+     "objetivo": "Frecuencia de horas con interrupción observada. Responde en qué sectores la interrupción aparece con mayor frecuencia. Visual sugerida: barra de proporción por sector.",
      "formula": "100 × horas observadas con minutos_interrupcion > 0 / horas observadas válidas",
      "numerador": "Horas válidas con minutos_interrupcion > 0",
      "denominador": "Horas observadas válidas (minutos en [0, 60])",
@@ -337,10 +338,10 @@ FICHAS_KPI = [
      "periodo_corte": "ago–dic 2025 UTC",
      "tratamiento_nulos": "0 = sin interrupción medida (dato). Hora ausente NO entra en el denominador: se informa con cobertura de T3",
      "umbral": "sin meta docente", "version_umbral": "v0-E1",
-     "responsable": "T4 (por confirmar)",
+     "responsable": "T4 (Sepu)",
      "accion": "Sectores con frecuencia alta: cruzar con continuidad (T3) antes de inspeccionar."},
-    {"id": "KPI-06", "tipo_KPI_KRI_visual": "KPI · serie semanal con umbral",
-     "objetivo": "Frecuencia de presión baja en la red. Es una señal operacional del escenario, no un criterio sanitario.",
+    {"id": "KPI-06", "tipo_KPI_KRI_visual": "KPI",
+     "objetivo": "Frecuencia de presión baja en la red. Es una señal operacional del escenario, no un criterio sanitario. Visual sugerida: serie semanal con umbral.",
      "formula": "100 × horas observadas válidas con presion_bar < 3,0 / horas observadas válidas",
      "numerador": "Horas válidas con presion_bar < 3,0 bar",
      "denominador": "Horas observadas válidas",
@@ -350,7 +351,7 @@ FICHAS_KPI = [
      "periodo_corte": "ago–dic 2025 UTC",
      "tratamiento_nulos": "Presión sin valor no ocurre en lecturas válidas; horas ausentes no entran al denominador",
      "umbral": "3,0 bar (supuesto docente; sensibilidad 2,5 y 3,5)", "version_umbral": "v0-E1 (a validar con el profesor)",
-     "responsable": "T4 (por confirmar)",
+     "responsable": "T4 (Sepu)",
      "accion": "Concentraciones de presión baja: revisar telemetría de presión del sector antes de atribuir causas hidráulicas."},
 ]
 
@@ -402,7 +403,8 @@ def fig_a_distribucion(df):
     ax[1].hist(p, bins=60, color=comun.PALETA["neutro"])
     ax[1].axvline(PRESION_BAJA_BAR, color=comun.PALETA["alerta"], ls="--")
     ax[1].text(PRESION_BAJA_BAR + 0.05, ax[1].get_ylim()[1] * 0.9, "3,0 bar (supuesto)", color=comun.PALETA["alerta"], fontsize=9)
-    ax[1].set(title="Presión: 2,2% de horas bajo 3,0 bar (ago–dic)", xlabel="bar", ylabel="horas")
+    bajo = str(round(100 * (p < PRESION_BAJA_BAR).mean(), 1)).replace(".", ",")
+    ax[1].set(title=f"Presión: {bajo}% de horas bajo 3,0 bar (ene–dic)", xlabel="bar (ene–dic 2025)", ylabel="horas")
     cero = (m == 0).sum()
     ax[2].bar(["0 min\n(sin interrupción)", ">0 min\n(con interrupción)"], [cero, (m > 0).sum()],
               color=[comun.PALETA["neutro"], comun.PALETA["alerta"]])

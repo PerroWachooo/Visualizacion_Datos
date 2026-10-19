@@ -71,7 +71,7 @@ Aquí se anotan las decisiones del grupo que **no estaban definidas** en el Word
 
 ## D-05: Período y calendario de la T3
 
-- **Fecha / quién:** 2026-10-14 · integrante de T3, según el plan aprobado en esta sesión, con asistencia de Codex.
+- **Fecha / quién:** 2026-10-14 · Bastian (T3), según su plan aprobado, con asistencia de Codex.
 - **Qué era ambiguo:** período definitivo del resumen del ranking y límites de las semanas.
 - **Alternativas:** resumen anual o ago–dic; semanas separadas por lote o calendario continuo.
 - **Decisión:** explorar los tres lotes durante 2025; `T3_por_sector.csv` resume ago–dic, compatible con T2 y con la disponibilidad de tarifas de T4. Semanas de lunes 00:00 a lunes 00:00 UTC, con fin exclusivo; las semanas de los extremos se recortan a 2025. Se agregan horas directamente aunque una semana cruce lote, mes o vigencia.
@@ -81,7 +81,7 @@ Aquí se anotan las decisiones del grupo que **no estaban definidas** en el Word
 
 ## D-06: Recepción de lectura e interrupción conocida son estados diferentes
 
-- **Fecha / quién:** 2026-10-14 · integrante de T3, según el plan aprobado en esta sesión, con asistencia de Codex.
+- **Fecha / quién:** 2026-10-14 · Bastian (T3), según su plan aprobado, con asistencia de Codex.
 - **Qué era ambiguo:** tratamiento de una lectura recibida con interrupción nula, no numérica o fuera de 0–60.
 - **Alternativas:** eliminar toda la lectura de cobertura, recortar minutos a 60 o considerar solo su interrupción como desconocida.
 - **Decisión:** reutilizar `T2_reglas.lecturas_validas` para cobertura; conservar la recepción de esas filas y tratar la interrupción inválida como desconocida. No recortar ni imputar. El calendario completo recibe exactamente una vigencia histórica, aun en horas ausentes. O usa solo interrupciones conocidas; U = E − O incluye horas ausentes e interrupciones inválidas.
@@ -91,7 +91,7 @@ Aquí se anotan las decisiones del grupo que **no estaban definidas** en el Word
 
 ## D-07: Ausencia visible en figuras agregadas por día
 
-- **Fecha / quién:** 2026-10-14 · integrante de T3, según el plan aprobado en esta sesión, con asistencia de Codex.
+- **Fecha / quién:** 2026-10-14 · Bastian (T3), según su plan aprobado, con asistencia de Codex.
 - **Qué era ambiguo:** un sector-día puede contener algunas lecturas y algunas horas desconocidas.
 - **Alternativas:** ocultar el faltante al mostrar solo la media conocida, o acompañar la media con cobertura y marcas de información parcial.
 - **Decisión:** mapa de calor doble: cobertura de lecturas e interrupción media conocida. Gris significa celda sin información; puntos rojos indican horas sin lectura en el primer panel y exposición de interrupción desconocida en el segundo. Se exportan ambos denominadores diarios. El gráfico presión–interrupción usa las mismas horas válidas para ambas variables, sin nuevo umbral de presión baja.
@@ -101,7 +101,7 @@ Aquí se anotan las decisiones del grupo que **no estaban definidas** en el Word
 
 ## D-08: Umbral de presión baja (KPI-06) y sensibilidad
 
-- **Fecha / quién:** 2026-10-17 · T4 (Benjamín, pendiente de confirmar nombre), con asistencia de OpenCode.
+- **Fecha / quién:** 2026-10-17 · Sepu (Benjamín Sepúlveda, T4), con asistencia de OpenCode.
 - **Qué era ambiguo:** el Word pide "horas con presión baja" como señal operacional, pero no define el umbral. Los datos no traen una norma de presión mínima.
 - **Alternativas:** usar un percentil (p. ej. P5 de la distribución propia), o un umbral fijo docente. Un percentil oculta si la red entera baja de presión.
 - **Decisión:** umbral fijo de 3,0 bar, marcado como supuesto docente a validar con el profesor. Se informan sensibilidades de 2,5 y 3,5 bar.
@@ -111,7 +111,7 @@ Aquí se anotan las decisiones del grupo que **no estaban definidas** en el Word
 
 ## D-09: Costo por m³ como razón de sumas y descomposición con identidad
 
-- **Fecha / quién:** 2026-10-17 · T4 (Benjamín, pendiente de confirmar nombre), con asistencia de OpenCode.
+- **Fecha / quién:** 2026-10-17 · Sepu (Benjamín Sepúlveda, T4), con asistencia de OpenCode.
 - **Qué era ambiguo:** el Word pide presentar la razón de sumas frente al promedio de razones, sin fijar cuál es el KPI.
 - **Alternativas:** promedio de razones horarias (cada hora pesa igual, aunque tenga poco volumen), o razón de sumas (Σ costo / Σ m³).
 - **Decisión:** KPI-04 = Σ costo / Σ m³ (razón de sumas). El promedio de razones se informa como comparación. La variación entre meses se descompone en energía por m³ y tarifa, con la identidad costo/m³ = (kWh/m³) × (CLP/kWh) y sin residuo.
