@@ -5,7 +5,7 @@ Lo usa E1/T4_eda_negocio.ipynb. Todo se calcula sobre lecturas válidas
 volúmenes en m3 con unidad conocida, entrada >= 0, salida <= entrada, minutos en [0, 60].
 Nada se imputa: las exclusiones se cuentan y se informan (exclusiones()).
 
-Período de KPI y ranking: ago–dic 2025 UTC (único con tarifas y conexiones vigentes).
+Período de KPI y ranking: ago-dic 2025 UTC (único con tarifas y conexiones vigentes).
 """
 from pathlib import Path
 
@@ -50,9 +50,9 @@ def preparar():
 # Exclusiones declaradas (T4: cantidad, denominador y efecto)
 # ---------------------------------------------------------------------------------------------
 def exclusiones(df):
-    """Cuántas lecturas válidas quedan fuera de cada análisis, en ene–dic y ago–dic."""
+    """Cuántas lecturas válidas quedan fuera de cada análisis, en ene-dic y ago-dic."""
     filas = []
-    for pop, mask in [("ene–dic 2025", df["valida"]), ("ago–dic 2025", df["ago_dic"])]:
+    for pop, mask in [("ene-dic 2025", df["valida"]), ("ago-dic 2025", df["ago_dic"])]:
         v = df[mask]
         e, s, m = v["volumen_entrada_m3"], v["volumen_salida_m3"], v["minutos_interrupcion"]
         desconocida = v["_unidad_desconocida"]
@@ -63,7 +63,7 @@ def exclusiones(df):
             ("Volumen de salida no convertible", s.isna() & e.notna()),
             ("Volumen de entrada negativo", e < 0),
             ("Salida mayor que entrada", (s > e) & (e >= 0)),
-            ("Minutos de interrupción fuera de 0–60", ~m.between(0, 60)),
+            ("Minutos de interrupción fuera de 0-60", ~m.between(0, 60)),
         ]
         n_base = len(v)
         for nombre, cond in conds:
@@ -77,17 +77,17 @@ def exclusiones(df):
 
 
 # ---------------------------------------------------------------------------------------------
-# Análisis (a)–(e)
+# Análisis (a)-(e)
 # ---------------------------------------------------------------------------------------------
 def distribucion(df):
     """(a) Medidas descriptivas de las variables de decisión, con n y RIC."""
     v = df[df["vol_ok"]]
     vars_ = {
         "volumen_entrada_m3 (m3 por hora)": v["volumen_entrada_m3"].astype(float),
-        "diferencia entrada − salida (m3 por hora)": (v["volumen_entrada_m3"] - v["volumen_salida_m3"]).astype(float),
+        "diferencia entrada - salida (m3 por hora)": (v["volumen_entrada_m3"] - v["volumen_salida_m3"]).astype(float),
         "presion_bar": df.loc[df["valida"], "presion_bar"].astype(float),
         "energia_kwh (por hora)": df.loc[df["valida"], "energia_kwh"].astype(float),
-        "minutos_interrupcion (solo horas con 0–60)": df.loc[df["min_ok"], "minutos_interrupcion"].astype(float),
+        "minutos_interrupcion (solo horas con 0-60)": df.loc[df["min_ok"], "minutos_interrupcion"].astype(float),
     }
     filas = []
     for nombre, s in vars_.items():
@@ -139,7 +139,7 @@ def serie_semanal(df):
 
 
 def comparar_segmentos(df):
-    """(d) Sectores y modo de operación. Modo: ene–dic, lecturas válidas (vol_ok para volúmenes)."""
+    """(d) Sectores y modo de operación. Modo: ene-dic, lecturas válidas (vol_ok para volúmenes)."""
     filas = []
     for modo, g in df[df["valida"]].groupby("modo_operacion"):
         vol = g[g["vol_ok"]]
@@ -165,7 +165,7 @@ def correlaciones(df):
     v["energia"] = v["energia_kwh"].astype(float)
     v["presion"] = v["presion_bar"].astype(float)
     pares = [("energia_kwh vs volumen_entrada_m3", "energia", "entrada_m3"),
-             ("presion_bar vs diferencia entrada − salida (m3)", "presion", "dif_m3")]
+             ("presion_bar vs diferencia entrada - salida (m3)", "presion", "dif_m3")]
     filas = []
     for nombre, x, y in pares:
         par = v[[x, y]].dropna()
@@ -184,7 +184,7 @@ def _costo_horas(df, ctx):
     d = df[df["ago_dic"] & df["vol_ok"] & df["energia_kwh"].notna()].copy()
     d["mes"] = d["mes"].astype(str)
     d = d.merge(t, on=["sector_id", "mes"], how="left", validate="m:1")
-    assert d["tarifa_kwh_clp"].notna().all(), "hay sector-mes sin tarifa dentro de ago–dic"
+    assert d["tarifa_kwh_clp"].notna().all(), "hay sector-mes sin tarifa dentro de ago-dic"
     d["kwh"] = d["energia_kwh"].astype(float)
     d["m3"] = d["volumen_entrada_m3"].astype(float)
     d["m3_sin_convertir"] = d["volumen_entrada"].astype(float)   # litros tratados como m3 (error a evitar)
@@ -222,7 +222,7 @@ def costo_m3(df, ctx):
                       "delta_vs_agosto_clp_m3": r["costo_clp_por_m3"] - base["costo_clp_por_m3"],
                       "efecto_energia_clp_m3": ef_e, "efecto_tarifa_clp_m3": ef_t})
     total = _resumen_costo(d)
-    filas.append({"bloque": "total", "clave": "ago–dic", **total.to_dict(),
+    filas.append({"bloque": "total", "clave": "ago-dic", **total.to_dict(),
                   "delta_vs_agosto_clp_m3": np.nan, "efecto_energia_clp_m3": np.nan, "efecto_tarifa_clp_m3": np.nan})
     out = pd.DataFrame(filas)
     cols = ["bloque", "clave", "filas", "m3_entrada", "kwh", "costo_clp", "kwh_por_m3", "tarifa_clp_kwh_ponderada",
@@ -235,7 +235,7 @@ def costo_m3(df, ctx):
 # KPI (W6) y tabla por sector (contrato del README)
 # ---------------------------------------------------------------------------------------------
 def kpi_valores(df, ctx):
-    """Valores de los KPI de ago–dic (y su denominador). KPI-01 se toma de T3."""
+    """Valores de los KPI de ago-dic (y su denominador). KPI-01 se toma de T3."""
     a = df[df["ago_dic"]]
     vol = a[a["vol_ok"]]
     mi = a[a["min_ok"]]
@@ -252,14 +252,14 @@ def kpi_valores(df, ctx):
         "KPI-06 sensibilidad 2,5 bar (%)": 100 * (a["presion_bar"] < 2.5).mean(),
         "KPI-06 sensibilidad 3,5 bar (%)": 100 * (a["presion_bar"] < 3.5).mean(),
         "denominador KPI-02/03/04 (lecturas con volumen válido)": len(vol),
-        "denominador KPI-05 (horas válidas con minutos en 0–60, ago–dic)": len(mi),
-        "denominador KPI-06 (lecturas válidas, ago–dic)": len(a),
-        "horas observadas T3 (ago–dic)": horas_obs,
+        "denominador KPI-05 (horas válidas con minutos en 0-60, ago-dic)": len(mi),
+        "denominador KPI-06 (lecturas válidas, ago-dic)": len(a),
+        "horas observadas T3 (ago-dic)": horas_obs,
     }
 
 
 def por_sector(df, ctx):
-    """T4_por_sector.csv: contrato del README (30 filas, ago–dic)."""
+    """T4_por_sector.csv: contrato del README (30 filas, ago-dic)."""
     vol = df[df["ago_dic"] & df["vol_ok"]].copy()
     vol["e"] = vol["volumen_entrada_m3"].astype(float)
     vol["s"] = vol["volumen_salida_m3"].astype(float)
@@ -277,26 +277,26 @@ def por_sector(df, ctx):
 FICHAS_KPI = [
     {"id": "KPI-01", "tipo_KPI_KRI_visual": "KPI",
      "objetivo": "Continuidad ponderada por conexiones del servicio, con horas desconocidas acotadas entre 0 y 60 min. Responde si un sector cumple la meta docente con lo observado. Visual sugerida: barras con intervalo por sector (0/60 min).",
-     "formula": "Observada = 100 × (1 − min. interrumpidos / min. de conexión observados); límite superior = 100 × (1 − interrumpidos / esperados) [horas ausentes = 0 min]; límite inferior = 100 × (1 − (interrumpidos + desconocidos) / esperados) [horas ausentes = 60 min]. Minutos ponderados por conexiones vigentes",
+     "formula": "Observada = 100 × (1 - min. interrumpidos / min. de conexión observados); límite superior = 100 × (1 - interrumpidos / esperados) [horas ausentes = 0 min]; límite inferior = 100 × (1 - (interrumpidos + desconocidos) / esperados) [horas ausentes = 60 min]. Minutos ponderados por conexiones vigentes",
      "numerador": "Minutos de conexión interrumpidos (observados); para el límite inferior, más minutos de conexión de horas ausentes (60 min × conexiones)",
      "denominador": "Minutos de conexión esperados = Σ conexiones vigentes × 60 min por hora del calendario UTC (observada: minutos observados)",
-     "unidad": "%", "granularidad": "Sector × ago–dic 2025 (ranking); semanal en T3",
+     "unidad": "%", "granularidad": "Sector × ago-dic 2025 (ranking); semanal en T3",
      "fuente_columnas": "telemetria_horaria: fecha, sector_id, minutos_interrupcion; complementarios/sectores_historial.csv: conexiones (vigencia por fecha)",
      "filtros": "Lecturas válidas (T2_reglas.lecturas_validas); minutos en [0, 60]; cálculo oficial en T3 (P1)",
-     "periodo_corte": "ago–dic 2025 UTC (corte del lote ampliación: 2026-01-08)",
+     "periodo_corte": "ago-dic 2025 UTC (corte del lote ampliación: 2026-01-08)",
      "tratamiento_nulos": "Hora sin lectura = AUSENTE: no se imputa 0; se reporta como intervalo [0 min, 60 min]",
      "umbral": "99,5", "version_umbral": "v0-E1 (meta docente de metas_2025_ancho.csv)",
      "responsable": "T4 (Sepu) · cálculo oficial T3 (Bastian)",
      "accion": "Si el límite superior queda bajo la meta, el sector se prioriza; si el intervalo cruza la meta, primero recolectar evidencia de transmisión."},
     {"id": "KPI-02", "tipo_KPI_KRI_visual": "KPI",
      "objetivo": "Balance hídrico: cuánto del volumen de entrada no sale del sector. Responde dónde el balance es más desfavorable para revisar medición y fugas. Visual sugerida: barras por sector ordenadas.",
-     "formula": "100 × Σ(entrada − salida) / Σ entrada (razón de sumas)",
-     "numerador": "Σ (volumen_entrada_m3 − volumen_salida_m3) en lecturas con volumen válido",
+     "formula": "100 × Σ(entrada - salida) / Σ entrada (razón de sumas)",
+     "numerador": "Σ (volumen_entrada_m3 - volumen_salida_m3) en lecturas con volumen válido",
      "denominador": "Σ volumen_entrada_m3 en las mismas lecturas",
      "unidad": "%", "granularidad": "Sector × período; total de red",
      "fuente_columnas": "telemetria_horaria: volumen_entrada, volumen_salida, unidad_volumen (L → m3 ÷ 1000)",
      "filtros": "Lecturas válidas; unidad conocida; entrada ≥ 0; salida ≤ entrada (misma referencia que T2 sesgo_kpi)",
-     "periodo_corte": "ago–dic 2025 UTC (ranking); ene–dic 2025 como contexto",
+     "periodo_corte": "ago-dic 2025 UTC (ranking); ene-dic 2025 como contexto",
      "tratamiento_nulos": "Volumen nulo, PENDIENTE o unidad 'unidad?' = NA: se excluye y se cuenta; nunca se adivina la unidad",
      "umbral": "sin meta docente", "version_umbral": "v0-E1",
      "responsable": "T4 (Sepu)",
@@ -309,7 +309,7 @@ FICHAS_KPI = [
      "unidad": "kWh/m3", "granularidad": "Sector × mes; total de red",
      "fuente_columnas": "telemetria_horaria: energia_kwh, volumen_entrada (unidad)",
      "filtros": "Lecturas válidas con volumen válido (vol_ok)",
-     "periodo_corte": "ago–dic 2025 UTC",
+     "periodo_corte": "ago-dic 2025 UTC",
      "tratamiento_nulos": "Energía sin valor no ocurre en lecturas válidas; volumen NA excluye la lectura de numerador y denominador",
      "umbral": "sin meta docente", "version_umbral": "v0-E1",
      "responsable": "T4 (Sepu)",
@@ -321,9 +321,9 @@ FICHAS_KPI = [
      "denominador": "Σ volumen_entrada_m3 en las mismas lecturas",
      "unidad": "CLP/m3", "granularidad": "Sector × mes; total de red",
      "fuente_columnas": "telemetria_horaria: energia_kwh, volumen_entrada; complementarios/tarifas_energia.csv: tarifa_kwh_clp por sector + mes",
-     "filtros": "Lecturas con volumen válido; solo ago–dic (tarifas N:1 por sector y mes)",
-     "periodo_corte": "ago–dic 2025 UTC",
-     "tratamiento_nulos": "Tarifa ausente antes de agosto = fuera de alcance (no es 0); sector-mes sin tarifa dentro de ago–dic no ocurre (se verifica con assert)",
+     "filtros": "Lecturas con volumen válido; solo ago-dic (tarifas N:1 por sector y mes)",
+     "periodo_corte": "ago-dic 2025 UTC",
+     "tratamiento_nulos": "Tarifa ausente antes de agosto = fuera de alcance (no es 0); sector-mes sin tarifa dentro de ago-dic no ocurre (se verifica con assert)",
      "umbral": "sin meta docente", "version_umbral": "v0-E1",
      "responsable": "T4 (Sepu)",
      "accion": "Separar si el costo sube por energía (kWh/m3) o por tarifa (CLP/kWh) antes de proponer medidas."},
@@ -335,7 +335,7 @@ FICHAS_KPI = [
      "unidad": "%", "granularidad": "Sector × período",
      "fuente_columnas": "telemetria_horaria: minutos_interrupcion, fecha, sector_id",
      "filtros": "Lecturas válidas; minutos en [0, 60] (los > 60 se cuentan aparte, RQ-VAL-08)",
-     "periodo_corte": "ago–dic 2025 UTC",
+     "periodo_corte": "ago-dic 2025 UTC",
      "tratamiento_nulos": "0 = sin interrupción medida (dato). Hora ausente NO entra en el denominador: se informa con cobertura de T3",
      "umbral": "sin meta docente", "version_umbral": "v0-E1",
      "responsable": "T4 (Sepu)",
@@ -348,7 +348,7 @@ FICHAS_KPI = [
      "unidad": "%", "granularidad": "Sector × semana",
      "fuente_columnas": "telemetria_horaria: presion_bar, fecha, sector_id",
      "filtros": "Lecturas válidas (sin copias ni sector-horas repetidas)",
-     "periodo_corte": "ago–dic 2025 UTC",
+     "periodo_corte": "ago-dic 2025 UTC",
      "tratamiento_nulos": "Presión sin valor no ocurre en lecturas válidas; horas ausentes no entran al denominador",
      "umbral": "3,0 bar (supuesto docente; sensibilidad 2,5 y 3,5)", "version_umbral": "v0-E1 (a validar con el profesor)",
      "responsable": "T4 (Sepu)",
@@ -399,16 +399,16 @@ def fig_a_distribucion(df):
     m = df.loc[df["min_ok"], "minutos_interrupcion"].astype(float)
     fig, ax = plt.subplots(1, 3, figsize=(13, 4.2))
     ax[0].hist(v["volumen_entrada_m3"].astype(float), bins=60, color=comun.PALETA["acento"])
-    ax[0].set(title="Volumen de entrada: mediana 593 m³/h", xlabel="m³ por hora (ene–dic 2025)", ylabel="horas")
+    ax[0].set(title="Volumen de entrada: mediana 593 m³/h", xlabel="m³ por hora (ene-dic 2025)", ylabel="horas")
     ax[1].hist(p, bins=60, color=comun.PALETA["neutro"])
     ax[1].axvline(PRESION_BAJA_BAR, color=comun.PALETA["alerta"], ls="--")
     ax[1].text(PRESION_BAJA_BAR + 0.05, ax[1].get_ylim()[1] * 0.9, "3,0 bar (supuesto)", color=comun.PALETA["alerta"], fontsize=9)
     bajo = str(round(100 * (p < PRESION_BAJA_BAR).mean(), 1)).replace(".", ",")
-    ax[1].set(title=f"Presión: {bajo}% de horas bajo 3,0 bar (ene–dic)", xlabel="bar (ene–dic 2025)", ylabel="horas")
+    ax[1].set(title=f"Presión: {bajo}% de horas bajo 3,0 bar (ene-dic)", xlabel="bar (ene-dic 2025)", ylabel="horas")
     cero = (m == 0).sum()
     ax[2].bar(["0 min\n(sin interrupción)", ">0 min\n(con interrupción)"], [cero, (m > 0).sum()],
               color=[comun.PALETA["neutro"], comun.PALETA["alerta"]])
-    ax[2].set(title="Interrupción: 4,3% de horas > 0 min", ylabel="horas válidas (0–60 min)")
+    ax[2].set(title="Interrupción: 4,3% de horas > 0 min", ylabel="horas válidas (0-60 min)")
     for a in ax:
         _limpio(a)
     fig.tight_layout(rect=(0, 0.08, 1, 1))
@@ -452,7 +452,7 @@ def fig_c_evolucion(serie):
             a.axvline(pd.Timestamp(corte), color="#777777", ls=":", lw=1)
     ax[0].text(pd.Timestamp("2025-07-08"), ax[0].get_ylim()[1], " cortes de lote", fontsize=8, color="#555555", va="top")
     fig.tight_layout(rect=(0, 0.04, 1, 1))
-    _pie(fig, "Semanas lunes–domingo UTC; la última y primera pueden estar incompletas. Ver tabla T4_evolucion_semanal.")
+    _pie(fig, "Semanas lunes-domingo UTC; la última y primera pueden estar incompletas. Ver tabla T4_evolucion_semanal.")
     return fig
 
 
@@ -462,7 +462,7 @@ def fig_d_segmentos(df, ps):
     ordenado = ps.sort_values("dif_volumen_pct")
     colores = [comun.PALETA["alerta"] if s in BLOQUE_ALTO else comun.PALETA["neutro"] for s in ordenado["sector_id"]]
     ax[0].barh(ordenado["sector_id"], ordenado["dif_volumen_pct"], color=colores)
-    ax[0].set(title="Diferencia de volúmenes ago–dic: 10 sectores en ~24% vs ~15%", xlabel="% (Σ entrada − salida) / Σ entrada")
+    ax[0].set(title="Diferencia de volúmenes ago-dic: 10 sectores en ~24% vs ~15%", xlabel="% (Σ entrada - salida) / Σ entrada")
     ax[0].tick_params(axis="y", labelsize=7)
     v = df[df["vol_ok"]].copy()
     v["grupo"] = np.where(v["sector_id"].isin(BLOQUE_ALTO), "A-S20 a A-S29", "resto (20 sectores)")
@@ -477,7 +477,7 @@ def fig_d_segmentos(df, ps):
     for a in ax:
         _limpio(a)
     fig.tight_layout(rect=(0, 0.05, 1, 1))
-    _pie(fig, "Izq.: ago–dic 2025 por sector. Der.: ene–dic 2025 por mes UTC. Lecturas con volumen válido.")
+    _pie(fig, "Izq.: ago-dic 2025 por sector. Der.: ene-dic 2025 por mes UTC. Lecturas con volumen válido.")
     return fig
 
 
@@ -489,7 +489,7 @@ def fig_e_bivariada(df):
     ax[0].set(title="Energía y volumen de entrada: r = 0,96", xlabel="volumen de entrada (m³/h)", ylabel="energía (kWh/h)")
     dif = (v["volumen_entrada_m3"] - v["volumen_salida_m3"]).astype(float)
     ax[1].scatter(v["presion_bar"].astype(float), dif, s=4, alpha=0.3, color=comun.PALETA["neutro"])
-    ax[1].set(title="Presión y diferencia de volúmenes: r ≈ 0", xlabel="presión (bar)", ylabel="entrada − salida (m³/h)")
+    ax[1].set(title="Presión y diferencia de volúmenes: r ≈ 0", xlabel="presión (bar)", ylabel="entrada - salida (m³/h)")
     for a in ax:
         _limpio(a)
     fig.tight_layout(rect=(0, 0.08, 1, 1))
@@ -516,7 +516,7 @@ def fig_costo(costo):
     for a in ax:
         _limpio(a)
     fig.tight_layout(rect=(0, 0.08, 1, 1))
-    _pie(fig, "Razón de sumas (Σ costo / Σ m³). Costo = kWh × tarifa del sector-mes; ago–dic 2025 UTC.")
+    _pie(fig, "Razón de sumas (Σ costo / Σ m³). Costo = kWh × tarifa del sector-mes; ago-dic 2025 UTC.")
     return fig
 
 

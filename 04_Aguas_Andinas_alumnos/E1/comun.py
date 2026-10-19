@@ -16,6 +16,9 @@ import hashlib
 import json
 
 import pandas as pd
+import matplotlib
+
+matplotlib.rcParams["axes.unicode_minus"] = False  # ejes con guion normal, no el signo menos tipográfico
 
 RAIZ = Path(__file__).resolve().parents[1]  # 04_Aguas_Andinas_alumnos/
 DATOS = RAIZ / "datos"

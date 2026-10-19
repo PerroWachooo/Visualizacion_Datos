@@ -21,7 +21,7 @@ UMBRAL_ATRASO_H = 2                 # D-01: "latency": 2 de metadatos.json inter
 SENSIBILIDAD_ATRASO_H = (1, 2, 3, 6)
 META_CONTINUIDAD = 99.5             # metas_2025_ancho.csv, sentido mínimo (meta docente)
 LOTES = comun.LOTES
-PERIODO_LOTE = {                    # [inicio, fin) en UTC; ago–dic = lote ampliación
+PERIODO_LOTE = {                    # [inicio, fin) en UTC; ago-dic = lote ampliación
     "base": ("2025-01-01", "2025-07-01"),
     "actualizacion": ("2025-07-01", "2025-08-01"),
     "ampliacion": ("2025-08-01", "2026-01-01"),
@@ -66,7 +66,7 @@ def _capacidad_vigente(df, hist):
 
 
 def _fuera_ric(valores, grupos):
-    """True donde el valor cae fuera de [Q1 − 1,5·RIC, Q3 + 1,5·RIC] dentro de su grupo."""
+    """True donde el valor cae fuera de [Q1 - 1,5·RIC, Q3 + 1,5·RIC] dentro de su grupo."""
     q1 = valores.groupby(grupos).transform(lambda s: s.quantile(0.25))
     q3 = valores.groupby(grupos).transform(lambda s: s.quantile(0.75))
     ric = q3 - q1
@@ -283,7 +283,7 @@ REGLAS = [
          justificacion="Una lectura no puede cargarse antes de que ocurra la hora que mide.",
          impacto_KPI="Atraso negativo: distorsiona el indicador de oportunidad."),
     dict(regla_id="RQ-OPO-02", campo="cargado_en", clasificacion="defecto", severidad="media",
-         condicion=f"Atraso de carga (cargado_en − fecha) mayor que {UMBRAL_ATRASO_H} horas",
+         condicion=f"Atraso de carga (cargado_en - fecha) mayor que {UMBRAL_ATRASO_H} horas",
          denominador="Filas con fecha y cargado_en válidos",
          tratamiento="No excluir del análisis histórico; reportar como métrica de oportunidad",
          justificacion=f"metadatos.json declara \"latency\": 2 sin unidad. Se interpreta como {UMBRAL_ATRASO_H} horas (decisión D-01, decisiones.md): calza con la telemetría horaria. Con 2 días ninguna lectura fallaría. Se informa la sensibilidad a 1, 3 y 6 h.",
@@ -295,29 +295,29 @@ REGLAS = [
          justificacion="La capacidad sintética sirve para detectar magnitudes anómalas.",
          impacto_KPI="Ninguno si no aparece; si aparece, inflaría volumen y bajaría kWh/m3."),
     dict(regla_id="RQ-EXT-02", campo="volumen_entrada", clasificacion="extremo_plausible", severidad="baja",
-         condicion="volumen_entrada (m3) fuera de [Q1 − 1,5·RIC; Q3 + 1,5·RIC] de su sector",
+         condicion="volumen_entrada (m3) fuera de [Q1 - 1,5·RIC; Q3 + 1,5·RIC] de su sector",
          denominador="Filas con volúmenes válidos de sectores del catálogo",
          tratamiento="Marcar para revisión; no borrar (puede ser un caso real)",
          justificacion="Regla estadística de alerta (clase 01, lámina 23): orienta una revisión, no ordena eliminar.",
          impacto_KPI="Puede mover medias del sector; las medianas y razones de sumas son más robustas."),
     dict(regla_id="RQ-EXT-03", campo="energia_kwh", clasificacion="extremo_plausible", severidad="baja",
-         condicion="energia_kwh fuera de [Q1 − 1,5·RIC; Q3 + 1,5·RIC] de su sector",
+         condicion="energia_kwh fuera de [Q1 - 1,5·RIC; Q3 + 1,5·RIC] de su sector",
          denominador="Filas con energía numérica de sectores del catálogo",
          tratamiento="Marcar para revisión; no borrar",
          justificacion="Regla estadística de alerta; la energía alta puede ser real (bombeo).",
          impacto_KPI="kWh/m3 y costo por m3 del sector."),
     dict(regla_id="RQ-EXT-04", campo="presion_bar", clasificacion="extremo_plausible", severidad="baja",
-         condicion="presion_bar fuera de [Q1 − 1,5·RIC; Q3 + 1,5·RIC] de su sector",
+         condicion="presion_bar fuera de [Q1 - 1,5·RIC; Q3 + 1,5·RIC] de su sector",
          denominador="Filas con presión numérica de sectores del catálogo",
          tratamiento="Marcar para revisión; no borrar. Una presión baja es solo una señal operacional del escenario",
          justificacion="Regla estadística de alerta; no es un criterio sanitario ni regulatorio.",
          impacto_KPI="Indicador de horas con presión baja."),
     dict(regla_id="RQ-AUS-01", campo="tarifa_kwh_clp", clasificacion="ausencia_estructural", severidad="baja",
-         condicion="Hecho de ene–jul sin tarifa de energía",
-         denominador="Filas con fecha válida en ene–jul",
-         tratamiento="Calcular el costo solo en ago–dic; no rellenar con 0",
-         justificacion="Las tarifas cubren ago–dic por diseño; la ausencia anterior está fuera de alcance (README del caso).",
-         impacto_KPI="El costo por m3 solo es comparable en ago–dic."),
+         condicion="Hecho de ene-jul sin tarifa de energía",
+         denominador="Filas con fecha válida en ene-jul",
+         tratamiento="Calcular el costo solo en ago-dic; no rellenar con 0",
+         justificacion="Las tarifas cubren ago-dic por diseño; la ausencia anterior está fuera de alcance (README del caso).",
+         impacto_KPI="El costo por m3 solo es comparable en ago-dic."),
 ]
 
 
@@ -333,7 +333,7 @@ NOMBRE_CORTO = {
     "RQ-OPO-01": "Carga antes de la hora medida", "RQ-OPO-02": f"Atraso de carga > {UMBRAL_ATRASO_H} h",
     "RQ-EXT-01": "Volumen > capacidad", "RQ-EXT-02": "Volumen extremo (1,5 RIC)",
     "RQ-EXT-03": "Energía extrema (1,5 RIC)", "RQ-EXT-04": "Presión extrema (1,5 RIC)",
-    "RQ-AUS-01": "Sin tarifa ene–jul (estructural)",
+    "RQ-AUS-01": "Sin tarifa ene-jul (estructural)",
 }
 
 
@@ -387,11 +387,11 @@ REGLAS_CATALOGO = [
          justificacion="Contrato: tarifa no negativa para sector-mes.",
          impacto_KPI="Costo por m3."),
     dict(regla_id="RQ-AUS-02", campo="m2025_08 … m2025_12", clasificacion="ausencia_estructural", severidad="baja",
-         condicion="metas_ancho.csv no tiene metas para ago–dic",
+         condicion="metas_ancho.csv no tiene metas para ago-dic",
          denominador="Filas de metas_ancho.csv (sector × indicador)",
          tratamiento="Usar metas_2025_ancho.csv, que la sustituye; no concatenar ambas versiones",
          justificacion="La versión 2025 reemplaza analíticamente a la original (README del caso).",
-         impacto_KPI="Comparación de continuidad con la meta en ago–dic."),
+         impacto_KPI="Comparación de continuidad con la meta en ago-dic."),
 ]
 
 
@@ -579,7 +579,7 @@ FORMATO_RECUPERABLE = ["RQ-VAL-02", "RQ-VAL-04", "RQ-VAL-09"]
 
 
 def por_sector(df, ev, ctx, lote="ampliacion"):
-    """T2_por_sector.csv: confiabilidad por sector en el período del ranking (ago–dic = lote ampliación).
+    """T2_por_sector.csv: confiabilidad por sector en el período del ranking (ago-dic = lote ampliación).
 
     filas_con_defecto: la fila falla al menos una regla de DEFECTOS_FILA (queda inutilizable para algún KPI).
     Los formatos recuperables y el atraso (RQ-OPO-02) van en columnas aparte y no cuentan como defecto.
@@ -632,7 +632,7 @@ FICHAS_CALIDAD = [
          unidad="%", granularidad="Sector-hora → sector × semana y lote",
          fuente_columnas="telemetria_horaria: fecha, sector_id, medicion_id; dimensiones/sectores.csv: sector_id; grilla calendario UTC",
          filtros="Los 3 lotes; excluye RQ-UNI-01, RQ-UNI-03, RQ-VAL-01, RQ-VAL-03, RQ-VAL-10",
-         periodo_corte="Por lote: ene–jun (corte 2025-07-08), jul (2025-08-08), ago–dic (2026-01-08)",
+         periodo_corte="Por lote: ene-jun (corte 2025-07-08), jul (2025-08-08), ago-dic (2026-01-08)",
          tratamiento_nulos="Una hora sin lectura es AUSENTE: no se imputa ni se cuenta como 0 de interrupción; se reporta la continuidad con límites 0/60",
          umbral="≥ 95% por sector (propuesta a validar en E3)", version_umbral="v0-E1",
          responsable="T2 (Byron); en operación: equipo de telemetría",
@@ -678,7 +678,7 @@ FICHAS_CALIDAD = [
          accion="Si es > 0%, tratar esas horas como desconocidas en la continuidad y revisar el registro de interrupciones"),
     dict(id="KRI-06", tipo_KPI_KRI_visual="KRI",
          objetivo="Oportunidad: lecturas que llegan tarde a la base de datos",
-         formula=f"100 × filas con (cargado_en − fecha) > {UMBRAL_ATRASO_H} h / filas con fecha y cargado_en válidos",
+         formula=f"100 × filas con (cargado_en - fecha) > {UMBRAL_ATRASO_H} h / filas con fecha y cargado_en válidos",
          numerador="Filas que fallan RQ-OPO-02", denominador="Filas con fecha y cargado_en válidos",
          unidad="%", granularidad="Fila → sector × lote", fuente_columnas="telemetria_horaria: fecha, cargado_en",
          filtros="Los 3 lotes", periodo_corte="Por lote, según su corte; nunca se compara con la fecha actual",
