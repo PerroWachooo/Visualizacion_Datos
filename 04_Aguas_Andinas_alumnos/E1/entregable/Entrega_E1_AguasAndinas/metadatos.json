@@ -1,0 +1,143 @@
+{
+  "empresa": "Aguas Andinas",
+  "tema": "Continuidad operacional y eficiencia de distribución",
+  "main": "telemetria_horaria",
+  "pk": "medicion_id",
+  "date": "fecha",
+  "fk": "sector_id",
+  "dim": "sectores",
+  "cat": "modo_operacion",
+  "num": "volumen_entrada",
+  "critical": [
+    "medicion_id",
+    "fecha",
+    "sector_id",
+    "volumen_entrada",
+    "volumen_salida",
+    "unidad_volumen",
+    "energia_kwh",
+    "minutos_interrupcion",
+    "presion_bar"
+  ],
+  "latency": 2,
+  "source": "https://www.aguasandinasinversionistas.cl/",
+  "advertencia": "Datos 100% sintéticos para docencia. Empresas reales utilizadas solo como contexto. No representan sistemas, instalaciones, clientes, metas, incidentes ni resultados reales.",
+  "semilla": 20260924,
+  "encoding": "UTF-8",
+  "separador": ",",
+  "decimal": ".",
+  "nulos": "campo vacío",
+  "zona_horaria": "UTC",
+  "base_inicio": "2025-01-01",
+  "base_fin": "2025-06-30",
+  "corte_base": "2025-07-08T00:00:00Z",
+  "corte_actualizacion": "2025-08-08T00:00:00Z",
+  "files": [
+    {
+      "archivo": "datos/actualizacion/telemetria_horaria.csv",
+      "filas": 22432,
+      "columnas": 11,
+      "sha256": "16c591d7956a5c31da8a3de8b0bf12e83347e5b17758b413b356cfe9ad97ef1b"
+    },
+    {
+      "archivo": "datos/ampliacion/telemetria_horaria.csv",
+      "filas": 100000,
+      "columnas": 11,
+      "sha256": "0f95e0e2a8759837d4753703c70d01409b56331b38a827463b1e95055de6f55e"
+    },
+    {
+      "archivo": "datos/base/telemetria_horaria.csv",
+      "filas": 130972,
+      "columnas": 11,
+      "sha256": "1e9edf220a71b49f3ce472f73f6e0939b492129fd9e7e7ae5699c8eab3f5a24b"
+    },
+    {
+      "archivo": "datos/complementarios/metas_2025_ancho.csv",
+      "filas": 30,
+      "columnas": 16,
+      "sha256": "2ecbf487d1c7d61e7d6982ee183aad171b4ffdc03ca8001a3151ad1953fbb636"
+    },
+    {
+      "archivo": "datos/complementarios/sectores_historial.csv",
+      "filas": 60,
+      "columnas": 7,
+      "sha256": "e5eb2475a96725c6db1804a1cb44b002abf9d078529595d9181a29dfd0053039"
+    },
+    {
+      "archivo": "datos/complementarios/tarifas_energia.csv",
+      "filas": 150,
+      "columnas": 3,
+      "sha256": "5b972d095c557ffa7bf5ef58dd3f755141c797771e3c88498ea23f8028646997"
+    },
+    {
+      "archivo": "datos/dimensiones/metas_ancho.csv",
+      "filas": 30,
+      "columnas": 11,
+      "sha256": "67ed256a92faa117e591ad3ce33aa0843f7d243ab15ce483cdc61f81900b2503"
+    },
+    {
+      "archivo": "datos/dimensiones/sectores.csv",
+      "filas": 30,
+      "columnas": 5,
+      "sha256": "ac9d03a7fbd69b17cb725bbb0507c6e8982150ffa0d71563a1e9a046994959c6"
+    }
+  ],
+  "version_paquete": 2,
+  "ampliacion_inicio": "2025-08-01",
+  "ampliacion_fin": "2025-12-31",
+  "corte_ampliacion": "2026-01-08T00:00:00Z",
+  "semilla_ampliacion": 20261004,
+  "registros_nuevos_principales": 100000,
+  "criterio_vigencia": "desde inclusivo y hasta exclusivo; usar fecha de negocio UTC",
+  "formatos_fecha": [
+    "ISO 8601 UTC",
+    "dd/mm/YYYY HH:MM:SS interpretado UTC"
+  ],
+  "interpretacion_decimal": "Punto decimal canónico; la ampliación contiene algunos valores con coma decimal y sin separador de miles",
+  "nuevo_alcance": "Los complementarios cubren agosto a diciembre salvo catálogos históricos que declaran vigencias desde enero. No completar períodos anteriores con ceros de actividad no observada.",
+  "files_originales": [
+    {
+      "archivo": "datos/dimensiones/sectores.csv",
+      "filas": 30,
+      "columnas": 5,
+      "granularidad": "una fila por sector_id",
+      "clave_esperada": [
+        "sector_id"
+      ],
+      "sha256": "ac9d03a7fbd69b17cb725bbb0507c6e8982150ffa0d71563a1e9a046994959c6"
+    },
+    {
+      "archivo": "datos/dimensiones/metas_ancho.csv",
+      "filas": 30,
+      "columnas": 11,
+      "granularidad": "una fila por unidad de gestión e indicador, meses en columnas",
+      "clave_esperada": [
+        "sector_id",
+        "indicador"
+      ],
+      "sha256": "67ed256a92faa117e591ad3ce33aa0843f7d243ab15ce483cdc61f81900b2503"
+    },
+    {
+      "archivo": "datos/base/telemetria_horaria.csv",
+      "filas": 130972,
+      "columnas": 11,
+      "granularidad": "un sector por hora UTC",
+      "clave_esperada": [
+        "medicion_id"
+      ],
+      "sha256": "1e9edf220a71b49f3ce472f73f6e0939b492129fd9e7e7ae5699c8eab3f5a24b"
+    },
+    {
+      "archivo": "datos/actualizacion/telemetria_horaria.csv",
+      "filas": 22432,
+      "columnas": 11,
+      "granularidad": "un sector por hora UTC",
+      "clave_esperada": [
+        "medicion_id"
+      ],
+      "sha256": "16c591d7956a5c31da8a3de8b0bf12e83347e5b17758b413b356cfe9ad97ef1b"
+    }
+  ],
+  "horas_esperadas_ampliacion": 110160,
+  "horas_recibidas_ampliacion": 100000
+}

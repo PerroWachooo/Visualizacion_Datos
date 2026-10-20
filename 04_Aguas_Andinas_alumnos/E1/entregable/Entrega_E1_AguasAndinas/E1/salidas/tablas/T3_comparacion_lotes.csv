@@ -1,0 +1,4 @@
+lote,horas_esperadas,horas_observadas,horas_ausentes,cobertura_pct,filas_recibidas,copias_exactas,sector_horas_repetidas,fechas_imposibles,fechas_fuera_periodo,sectores_desconocidos,lecturas_sin_interrupcion_valida,filas_no_utilizadas,diferencia_recepcion_calendario
+actualizacion,22320,22253,67,99.6998207885,22432,112,0,22,0,45,0,179,-112
+ampliacion,110160,99500,10660,90.3231663036,100000,0,0,200,0,300,350,500,10160
+base,130320,129929,391,99.6999693063,130972,652,0,131,0,264,0,1043,-652

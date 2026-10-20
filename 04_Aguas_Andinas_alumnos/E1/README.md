@@ -233,7 +233,7 @@ Revisión de la entrega completa contra el Word, hecha con `/revisar-entrega E1`
 ../.venv/bin/python T5_consolidar.py                # debe seguir en 15 de 15
 ../.venv/bin/python T5_consolidar.py --empaquetar && ../.venv/bin/python T5_consolidar.py --probar
 ```
-Los cambios a mano dentro de `entregable/` se pierden al volver a empaquetar. Hay que hacerlos en el archivo de origen: la plantilla del `LEEME.md` está en `T5_consolidar.py`.
+La carpeta `entregable/` y el .zip se suben a GitHub: después de `--empaquetar`, hay que commitear ambos. Los cambios a mano dentro de `entregable/` se pierden al volver a empaquetar. Hay que hacerlos en el archivo de origen: la plantilla del `LEEME.md` está en `T5_consolidar.py`.
 
 **Evidencia para `trazabilidad_curso.csv`** (si el profe la pide):
 ```

@@ -92,7 +92,7 @@ Cada entrega vive en `04_Aguas_Andinas_alumnos/E<n>/`. La E1 está organizada as
 - **T5, consolidación (Byron, D-04):** `E1/tareas/T5_consolidacion.md` cierra los pendientes, corre el ranking real, une las fichas, arma el diagnóstico y el notebook final, y empaqueta. El script `E1/T5_consolidar.py` se corre desde `E1/`:
   - sin flags, muestra el estado ✅/❌ de insumos y productos;
   - `--unir-fichas`, `--ranking`, `--versiones`: preparan productos;
-  - `--empaquetar`: arma `E1/entregable/` + .zip, ignorado por git; solo funciona si todo está ✅, salvo con `--forzar`;
+  - `--empaquetar`: arma `E1/entregable/` (carpeta + .zip, **versionados en git**: tras volver a empaquetar, hay que commitear ambos); solo funciona si todo está ✅, salvo con `--forzar`;
   - `--probar`: ejecuta el notebook desde el .zip descomprimido;
   - `--notebook X.ipynb`: elige el notebook a revisar o empaquetar.
 - `E1/decisiones.md`: registro, en el que solo se agregan entradas, de las decisiones que no definía el Word (D-01 atraso de carga = 2 h; D-02 la confiabilidad define el tipo de inspección; D-03 el ranking espera a T3 y T4; D-04 se crea la T5; D-05 a D-07 calendario y continuidad de T3; D-08 presión baja < 3,0 bar; D-09 costo por m3 como razón de sumas). Cada decisión nueva o ambigüedad resuelta se agrega ahí.
